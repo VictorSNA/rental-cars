@@ -1,0 +1,26 @@
+<%= form_with model: @carcategory, local: true do |form| %>
+<% if @carcategory.errors.any? %>
+<% @carcategory.errors.full_messages.each do |message| %>
+    <%= message %>
+<% end %>
+<% end %>
+    <p>
+    <%= form.label :name, 'Nome' %>
+    <%= form.text_field :name %>
+    </p>
+    <p>
+    <%= form.label :daily_rate, 'Diária' %>
+    <%= form.text_field :daily_rate %>
+    </p>
+    <p>
+    <%= form.label :car_insurance, 'Seguro do carro' %>
+    <%= form.text_field :car_insurance %>
+    </p>
+    <p>
+    <%= form.label :third_party_insurance, 'Seguro contra terceiros' %>
+    <%= form.text_field :third_party_insurance %>
+    </p>
+    <p>
+    <%= form.submit 'Enviar' %>
+    </p>
+<% end %>

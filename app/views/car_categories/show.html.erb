@@ -1,0 +1,13 @@
+<h1>Categoria:</h1>
+<% if flash[:alert] %>
+<%= flash[:alert] %>
+<% end %>
+<%= @carcategory.name %>
+<%= @carcategory.daily_rate %>
+<%= @carcategory.car_insurance %>
+<%= @carcategory.third_party_insurance %>
+
+<%= link_to 'Editar', edit_car_category_path(@carcategory) %>
+
+<%= link_to 'Deletar', car_category_path(@carcategory), method: :delete,
+data: {confirm: 'Tem certeza?'} %>

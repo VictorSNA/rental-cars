@@ -1,0 +1,15 @@
+<%= form_with model: @manufacturer, local: true do |form| %>
+
+<% if @manufacturer.errors.any? %>
+    <% @manufacturer.errors.full_messages.each do |msg| %>
+        <%= msg %>
+    <% end %>
+<% end %>
+
+    <p>
+    <%= form.label :name, 'Nome' %>
+    <%= form.text_field :name %>
+    </p>
+
+    <%= form.submit 'Enviar' %>
+<% end %>

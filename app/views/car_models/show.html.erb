@@ -1,0 +1,9 @@
+<h1><%= @car_model.name %></h1>
+<h3>Detalhes</h3>
+<p><%= @car_model.year %></p>
+<p><%= @car_model.manufacturer.name %></p>
+<p><%= @car_model.motorization %></p>
+<p><%= @car_model.car_category.name %></p>
+<p><%= @car_model.fuel_type %></p>
+
+<%= link_to 'Voltar', car_models_path %>

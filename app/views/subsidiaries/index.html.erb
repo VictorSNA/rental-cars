@@ -1,0 +1,41 @@
+<head>
+<%= stylesheet_link_tag "cascata" %>
+</head>
+
+<div class="top">
+
+<div class="inner">
+    <div class='logo'>
+        <%= image_tag "img/logo.png", alt: 'logo_img' %>
+        <h1><b>SeuCarro</b>.agora</h1>
+        <h3>o seu sistema de locação de carros on-line</h3>
+    </div>
+
+    <div class="menu">
+        <ul>
+            <li><%= link_to 'Home', root_path %></li>
+            <li><%= link_to 'Fabricantes', manufacturers_path%></li>
+            <li><%= link_to 'Filiais', subsidiaries_path, class:'active' %></li>
+            <li><%= link_to 'Categorias de carro', car_categories_path %></li>
+            <li><%= link_to 'Modelos de carro', car_models_path  %></li>
+        </ul>
+    </div>
+</div>
+</div>
+
+<body>
+<main class="main">
+<article class="content">
+<h1>Lista de Filiais</h1>
+<%= link_to 'Cadastrar Filial', new_subsidiary_path %>
+<% if flash[:notice] %>
+<%= flash[:notice] %>
+<% end %>
+<% @subsidiaries.each do |subsidiary| %>
+    <%= link_to subsidiary.name, subsidiary %>
+    <%= subsidiary.cnpj %>
+    <%= subsidiary.address %>
+<% end %>
+</article>
+</main>
+</body>

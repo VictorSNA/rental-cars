@@ -1,0 +1,34 @@
+<head>
+<%= stylesheet_link_tag "cascata" %>
+</head>
+
+<div class="top">
+
+<div class="inner">
+    <div class='logo'>
+        <%= image_tag "img/logo.png", alt: 'logo_img' %>
+        <h1><b>Rental</b> Cars</h1>
+        <h3>Bem vindo ao sistema de gestão de locação</h3>
+    </div>
+
+    <div class="menu">
+        <ul>
+            <li><%= link_to 'Home', root_path, class:'active' %></li>
+            <li><%= link_to 'Fabricantes', manufacturers_path %></li>
+            <li><%= link_to 'Filiais', subsidiaries_path %></li>
+            <li><%= link_to 'Categorias de carro', car_categories_path %></li>
+            <li><%= link_to 'Modelos de carro', car_models_path  %></li>
+        </ul>
+    </div>
+</div>
+</div>
+
+<main class="main">
+
+<article class="content">
+<section class="">
+<hr>
+
+
+</article>
+</main>

@@ -1,0 +1,17 @@
+<h1>Editar fornecedor:</h1>
+
+<% if @manufacturer.errors.any? %>
+    <% @manufacturer.errors.full_messages do |msg| %>
+        <%= msg %>
+    <% end %>
+<% end %>
+
+<%= form_with model: @manufacturer, local: true do |form| %>
+    <p><%= form.label :name, 'Nome' %>
+    <%= form.text_field :name %>
+    </p>
+
+    <p>
+    <%= form.submit 'Enviar' %>
+    </p>
+<% end %>

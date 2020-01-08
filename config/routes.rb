@@ -1,3 +1,7 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  root to: 'home#index'
+  resources :manufacturers
+  resources :subsidiaries
+  resources :car_categories
+  resources :car_models, only: [:index, :show, :new, :create]
 end
