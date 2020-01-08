@@ -24,7 +24,7 @@ main{
     font-size: 1em;
     padding: 10px;
     border: 1px solid #ddd;
-    width: 100%%;
+    width: 100%;
     min-width: 100px;
 }
 .inner {
