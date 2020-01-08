@@ -18,13 +18,14 @@ feature 'Admin register Car Model' do
 
         click_on 'Enviar'
 
-        expect(page).to have_css('h1', text:'Onix Hatch')
-        expect(page).to have_css('h3', text:'Detalhes')
-        expect(page).to have_css('p', text:'2019')
-        expect(page).to have_css('p', text:'Chevrolet')
-        expect(page).to have_css('p', text:'1.4')
-        expect(page).to have_css('p', text: 'Sedã compacto')
-        expect(page).to have_css('p', text:'Flex')
+        expect(page).to have_css('h1', text:'MODELO:')
+        expect(page).to have_css('h2', text:'Onix Hatch')
+        expect(page).to have_css('h3', text:'Detalhes:')
+        expect(page).to have_css('p', text:'Ano: 2019')
+        expect(page).to have_css('p', text:'Fabricante: Chevrolet')
+        expect(page).to have_css('p', text:'Motorização: 1.4')
+        expect(page).to have_css('p', text: 'Categoria: Sedã compacto')
+        expect(page).to have_css('p', text:'Tipo de combustível: Flex')
     end
 
 end
