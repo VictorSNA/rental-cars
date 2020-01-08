@@ -1,45 +1,45 @@
 class CarCategoriesController < ApplicationController
     def index
-        @carcategories = CarCategory.all
+        @car_categories = CarCategory.all
     end
 
     def show
-        @carcategory = CarCategory.find(params[:id])
+        @car_category = CarCategory.find(params[:id])
     end
 
     def new
-        @carcategory = CarCategory.new
+        @car_category = CarCategory.new
     end
 
     def create
-        @carcategory = CarCategory.new(carcategoryparams)
+        @car_category = CarCategory.new(car_category_params)
 
-        if @carcategory.save
-            redirect_to @carcategory
+        if @car_category.save
+            redirect_to @car_category
         else
             render :new
         end
     end
     
     def edit
-        @carcategory = CarCategory.find(params[:id])
+        @car_category = CarCategory.find(params[:id])
     end
 
     def update
-        @carcategory = CarCategory.find(params[:id])
+        @car_category = CarCategory.find(params[:id])
 
-        if @carcategory.update(carcategoryparams)
+        if @car_category.update(car_category_params)
             flash[:alert] = 'Editado com sucesso'
-            redirect_to @carcategory
+            redirect_to @car_category
         else
             render :edit
         end
     end
 
     def destroy
-        @carcategory = CarCategory.find(params[:id])
+        @car_category = CarCategory.find(params[:id])
 
-        if @carcategory.destroy
+        if @car_category.destroy
             flash[:alert] = 'Excluído com sucesso'
             redirect_to car_categories_path
         else
@@ -48,7 +48,7 @@ class CarCategoriesController < ApplicationController
     end
     private
 
-    def carcategoryparams
+    def car_category_params
         params.require(:car_category).permit(:name,:daily_rate,:car_insurance,:third_party_insurance)
     end
 end
