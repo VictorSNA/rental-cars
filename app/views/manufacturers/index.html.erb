@@ -32,11 +32,11 @@
 <%= link_to 'Registrar novo fabricante', new_manufacturer_path %><br>
 <br>
 
-
+<ul>
 <% @manufacturers.each do |manufacturer| %>
-    <h4>Fornecedor: <%= link_to manufacturer.name, manufacturer %><h4>
+    <li>Fabricante: <%= link_to manufacturer.name, manufacturer %></li>
 <% end %>
-
+</ul>
 </article>
 </main>
 <body>
