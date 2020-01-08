@@ -36,6 +36,16 @@ class ManufacturersController < ApplicationController
 
     end
 
+    def destroy
+        @manufacturer = Manufacturer.find(params[:id])
+        if @manufacturer.destroy
+            flash[:alert] = "Fabricante excluído com sucesso"
+            redirect_to manufacturers_path
+        else
+            redirect_to :show
+        end
+    end
+
     private
 
     def manufacturer_params

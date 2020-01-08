@@ -31,7 +31,9 @@
 <h1>Lista de Fabricantes:</h1>
 <%= link_to 'Registrar novo fabricante', new_manufacturer_path %><br>
 <br>
-
+<% if flash[:alert] %>
+<%= flash[:alert] %>
+<% end %>
 <ul>
 <% @manufacturers.each do |manufacturer| %>
     <li>Fabricante: <%= link_to manufacturer.name, manufacturer %></li>
