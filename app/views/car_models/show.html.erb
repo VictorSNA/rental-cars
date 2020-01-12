@@ -8,4 +8,6 @@
 <p>Categoria: <%= @car_model.car_category.name %></p>
 <p>Tipo de combustível: <%= @car_model.fuel_type %></p>
 
+<%= link_to 'Deletar', car_model_path(@car_model), method: :delete,
+data: {confirm: 'Tem certeza?'} %>
 <%= link_to 'Voltar', car_models_path %>

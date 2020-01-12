@@ -26,6 +26,17 @@ class CarModelsController < ApplicationController
         end
     end
 
+    def destroy
+        @car_model = CarModel.find(params[:id])
+
+        if @car_model.destroy
+            flash[:alert] = ""
+            
+        else
+
+        end
+    end
+
     private
 
     def car_model_params
