@@ -10,6 +10,36 @@
   </head>
 
   <body>
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-npwrap p-0">
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="<%= root_path %>" >
+        <%= image_tag "img/logo_smallest.png", alt: 'logo_img' %>
+        <b>Rental</b> Cars /
+        <h6 class="media-heading">Bem vindo ao sistema de gestão de locação</h6>
+        </a>
+    </nav>
+    <div class="container-fluid">
+      <div class="row">
+      <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+        <div class="sidebar-sticky">
+          <ul class="nav flex-column">
+            <li class="nav-item"><%= link_to 'Home', root_path %></li>
+            <li class="nav-item"><%= link_to 'Fabricantes', manufacturers_path%></li>
+            <li class="nav-item"><%= link_to 'Filiais', subsidiaries_path %></li>
+            <li class="nav-item"><%= link_to 'Categorias de carro', car_categories_path %></li>
+            <li class="nav-item"><%= link_to 'Modelos de carro', car_models_path  %></li>
+          </ul>
+        </div>
+      </nav>
+    
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+    <%= alert %>
+    <%= notice %>
     <%= yield %>
+    </div>
+    </main>
+    </div>
+    
+    
+
   </body>
 </html>
