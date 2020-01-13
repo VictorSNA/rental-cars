@@ -14,7 +14,7 @@ feature 'Admin edits manufacturer' do
     expect(page).to have_content('Honda')
   end
 
-  scenario 'that already exists' do
+  scenario 'and must be unique' do
     Manufacturer.create(name: 'Fiat')
 
     visit root_path
@@ -26,14 +26,13 @@ feature 'Admin edits manufacturer' do
     expect(page).to have_content('Fornecedor já cadastrado')
   end
 
-  scenario 'and can not be blank' do
+  scenario 'and fields must be filled' do
     visit root_path
     click_on 'Fabricantes'
     click_on 'Registrar novo fabricante'
 
-    fill_in 'Nome', with: ''
     click_on 'Enviar'
 
-    expect(page).to have_content('Você deve preencher o campo Nome')
+    expect(page).to have_content('Nome não pode ficar vazio')
   end
 end

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'Admin deletes car model' do
+feature 'Admin delete car model' do
     scenario 'successfully' do
         manufacturer = Manufacturer.create!(name: 'Chevrolet')
         car_category = CarCategory.create!(name: 'Sedã compacto', daily_rate: 30,

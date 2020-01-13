@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'Admin deletes subsidiary' do
+feature 'Admin delete subsidiary' do
     scenario 'successfully' do
         Subsidiary.create!(name: 'Jabaquara', cnpj: '00.000.000/0000-00', address: 'Avenue Jabaquara')
 
