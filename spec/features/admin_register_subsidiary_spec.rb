@@ -2,6 +2,9 @@ require 'rails_helper'
 
 feature 'Admin register subsidiary' do
     scenario 'successfully' do
+        user = User.create!(email: 'teste@teste.com', password: '123456')
+
+        login_as(user, scope: :user)
         visit root_path
         click_on 'Filiais'
         click_on 'Cadastrar Filial'
@@ -18,6 +21,9 @@ feature 'Admin register subsidiary' do
     end
     
     scenario 'and fields must be filled' do
+        user = User.create!(email: 'teste@teste.com', password: '123456')
+
+        login_as(user, scope: :user)
         visit root_path
         click_on 'Filiais'
         click_on 'Cadastrar Filial'
@@ -31,7 +37,9 @@ feature 'Admin register subsidiary' do
 
     scenario 'and must be unique' do
         Subsidiary.create!(name: 'Paraíso', cnpj: '00.000.000/0000-01', address: 'Avenue Paraíso')
+        user = User.create!(email: 'teste@teste.com', password: '123456')
 
+        login_as(user, scope: :user)
         visit root_path
         click_on 'Filiais'
         click_on 'Cadastrar Filial'
@@ -46,6 +54,9 @@ feature 'Admin register subsidiary' do
     end
 
     scenario 'field CNPJ must be valid' do
+        user = User.create!(email: 'teste@teste.com', password: '123456')
+
+        login_as(user, scope: :user)
         visit root_path
         click_on 'Filiais'
         click_on 'Cadastrar Filial'
@@ -56,5 +67,12 @@ feature 'Admin register subsidiary' do
         click_on 'Enviar'
         
         expect(page).to have_content('CNPJ Inválido')
+    end
+
+    scenario 'and must be authenticated to register' do
+        visit new_subsidiary_path
+
+        expect(current_path).to eq(new_user_session_path)
+
     end
 end
