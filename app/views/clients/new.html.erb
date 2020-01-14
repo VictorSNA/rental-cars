@@ -1,0 +1,15 @@
+<%= form_for @client do |form| %>
+  <p>
+    <%= form.label :name, 'Nome' %>
+    <%= form.text_field :name %>
+  </p>
+  <p>
+    <%= form.label :cpf, 'CPF' %>
+    <%= form.text_field :cpf %>
+  </p>
+  <p>
+    <%= form.label :email %>
+    <%= form.text_field :email %>
+  </p>
+  <p><%= form.submit 'Enviar' %></p>
+<% end %>
