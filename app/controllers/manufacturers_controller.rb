@@ -1,4 +1,5 @@
 class ManufacturersController < ApplicationController
+    before_action :authenticate_user!, only:[:index,:show,:new, :edit]
     def index
         @manufacturers = Manufacturer.all
     end
