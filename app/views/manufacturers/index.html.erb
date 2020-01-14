@@ -1,5 +1,5 @@
 <h1>Lista de Fabricantes:</h1>
-<p><%= link_to 'Registrar novo fabricante', new_manufacturer_path %><br></p>
+<p><%= link_to 'Registrar fabricante', new_manufacturer_path %><br></p>
 <ul>
 <% @manufacturers.each do |manufacturer| %>
     <li>Fabricante: <%= link_to manufacturer.name, manufacturer %></li>

@@ -19,7 +19,7 @@ feature 'Admin edits manufacturer' do
 
     visit root_path
     click_on 'Fabricantes'
-    click_on 'Registrar novo fabricante'
+    click_on 'Registrar fabricante'
     fill_in 'Nome', with: 'Fiat'
     click_on 'Enviar'
 
@@ -29,7 +29,7 @@ feature 'Admin edits manufacturer' do
   scenario 'and fields must be filled' do
     visit root_path
     click_on 'Fabricantes'
-    click_on 'Registrar novo fabricante'
+    click_on 'Registrar fabricante'
 
     click_on 'Enviar'
 

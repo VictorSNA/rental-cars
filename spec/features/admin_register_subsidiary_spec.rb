@@ -17,7 +17,7 @@ feature 'Admin register subsidiary' do
         expect(page).to have_content('Avenue Paraíso')
     end
     
-    scenario 'and fields can not be blank' do
+    scenario 'and fields must be filled' do
         visit root_path
         click_on 'Filiais'
         click_on 'Cadastrar Filial'
@@ -29,7 +29,7 @@ feature 'Admin register subsidiary' do
         expect(page).to have_content('Address não pode estar vazio')
     end
 
-    scenario 'can not be duplicated' do
+    scenario 'and must be unique' do
         Subsidiary.create!(name: 'Paraíso', cnpj: '00.000.000/0000-01', address: 'Avenue Paraíso')
 
         visit root_path
@@ -45,7 +45,7 @@ feature 'Admin register subsidiary' do
         expect(page).to have_content('Filial já está cadastrada')
     end
 
-    scenario 'cnpj cannot be invalid' do
+    scenario 'field CNPJ must be valid' do
         visit root_path
         click_on 'Filiais'
         click_on 'Cadastrar Filial'

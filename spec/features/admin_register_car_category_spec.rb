@@ -8,7 +8,7 @@ feature 'Admin register Car Category' do
 
         fill_in 'Nome', with: 'Sedã'
         fill_in 'Diária', with: 30
-        fill_in 'Seguro do carro', with: 300
+        fill_in 'Seguro do automóvel', with: 300
         fill_in 'Seguro contra terceiros', with: 250
 
         click_on 'Enviar'
@@ -20,7 +20,7 @@ feature 'Admin register Car Category' do
 
     end
 
-    scenario 'Fields cannot be blank' do
+    scenario 'and fields must be filled' do
         visit root_path
 
         click_on 'Categorias de carro'
@@ -28,10 +28,10 @@ feature 'Admin register Car Category' do
 
         click_on 'Enviar'
 
-        expect(page).to have_content('Name não pode estar vazio')
-        expect(page).to have_content('Daily rate não pode estar vazio')
-        expect(page).to have_content('Car insurance não pode estar vazio')
-        expect(page).to have_content('Third party insurance não pode estar vazio')
+        expect(page).to have_content('Nome não pode ficar vazio')
+        expect(page).to have_content('Diária não pode ficar vazio')
+        expect(page).to have_content('Seguro do automóvel não pode ficar vazio')
+        expect(page).to have_content('Seguro contra terceiros não pode ficar vazio')
 
     end
 end
