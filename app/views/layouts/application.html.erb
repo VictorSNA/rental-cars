@@ -22,12 +22,17 @@
       <nav class="col-md-2 d-none d-md-block bg-light sidebar">
         <div class="sidebar-sticky">
           <ul class="nav flex-column">
+          <% if user_signed_in? %>
+            <%= link_to 'Sair', destroy_user_session_path, method: :delete%>
+          <% else %>
             <li class="nav-item"><%= link_to 'Home', root_path %></li>
             <li class="nav-item"><%= link_to 'Fabricantes', manufacturers_path%></li>
             <li class="nav-item"><%= link_to 'Filiais', subsidiaries_path %></li>
             <li class="nav-item"><%= link_to 'Categorias de carro', car_categories_path %></li>
             <li class="nav-item"><%= link_to 'Modelos de carro', car_models_path  %></li>
             <li class="nav-item"><%= link_to 'Clientes', clients_path  %></li>
+            <li class="nav-item"><%= link_to 'Entrar', new_user_session_path  %></li>
+          <% end %>
           </ul>
         </div>
       </nav>
