@@ -1,14 +1,19 @@
 class CarModelsController < ApplicationController
+    before_action :set_car_model, only:[:show,:edit,:update]
     def index
         @car_models = CarModel.all
     end
 
     def show
-        @car_model = CarModel.find(params[:id])
     end
-    
+
     def new
         @car_model = CarModel.new
+        @manufacturers = Manufacturer.all
+        @car_categories = CarCategory.all
+    end
+
+    def edit
         @manufacturers = Manufacturer.all
         @car_categories = CarCategory.all
     end
@@ -16,29 +21,29 @@ class CarModelsController < ApplicationController
     def create
         @car_model = CarModel.new(car_model_params)
 
-        if @car_model.save
-            flash.now[:alert] = "Registrado com sucesso"
-            redirect_to @car_model
-        else
-            @manufacturers = Manufacturer.all
-            @car_categories = CarCategory.all
-            render :new
-        end
+        return redirect_to @car_model, 
+                notice: 'Registrado com sucesso' if @car_model.save
+        
+        @manufacturers = Manufacturer.all
+        @car_categories = CarCategory.all
+        render :new
+        
     end
-
-    def destroy
-        @car_model = CarModel.find(params[:id])
-
-        if @car_model.destroy
-            flash[:alert] = ""
-            
-        else
-
-        end
+    
+    def update
+        return redirect_to @car_model,
+                notice: 'Editado com sucesso' if @car_model.update(car_model_params)
+        
+        @manufacturers = Manufacturer.all
+        @car_categories = CarCategory.all
+        render :edit
     end
 
     private
 
+    def set_car_model
+        @car_model = CarModel.find(params[:id])
+    end
     def car_model_params
         params.require(:car_model).permit(:name,:year,:manufacturer_id,:motorization,
                                     :car_category_id,:fuel_type)

@@ -1,0 +1,33 @@
+<%= form_for @car_model do |form| %>
+  <p>
+        <%= form.label :name, 'Nome' %>
+        <%= form.text_field :name %>
+    </p>
+
+    <p>
+        <%= form.label :year, 'Ano' %>
+        <%= form.text_field :year %>
+    </p>
+
+    <p>
+        <%= form.label :manufacturer_id, 'Fabricante' %>
+        <%= form.collection_select :manufacturer_id, @manufacturers, :id, :name%>
+    </p>
+
+    <p>
+        <%= form.label :motorization, 'Motorização' %>
+        <%= form.text_field :motorization %>
+    </p>
+
+    <p>
+        <%= form.label :car_category_id, 'Categoria de carro' %>
+        <%= form.collection_select :car_category_id, @car_categories, :id, :name%>
+    </p>
+
+    <p>
+        <%= form.label :fuel_type, 'Tipo de combustível' %>
+        <%= form.text_field :fuel_type%>
+    </p>
+
+    <p><%= form.submit 'Enviar' %></p>
+<% end %>
