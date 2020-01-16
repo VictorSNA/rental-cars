@@ -3,5 +3,7 @@
 <ul>
 <% @clients.each do |client| %>
   <li><%= link_to client.name, client %></li>
+  <li><%= client.cpf %></li>
+  <li><%= client.email %></li>
 <% end %>
 </ul>

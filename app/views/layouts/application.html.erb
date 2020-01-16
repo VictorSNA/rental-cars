@@ -28,11 +28,11 @@
             <li class="nav-item"><%= link_to 'Filiais', subsidiaries_path %></li>
             <li class="nav-item"><%= link_to 'Categorias de carro', car_categories_path %></li>
             <li class="nav-item"><%= link_to 'Modelos de carro', car_models_path  %></li>
+            <li class="nav-item"><%= link_to 'Clientes', clients_path  %></li>
             <li class="nav-item"><%= link_to 'Sair', destroy_user_session_path,
                                                     method: :delete%></li>
           <% else %>
             <li class="nav-item"><%= link_to 'Home', root_path %></li>
-            <li class="nav-item"><%= link_to 'Clientes', clients_path  %></li>
             <li class="nav-item"><%= link_to 'Entrar', new_user_session_path  %></li>
           <% end %>
           </ul>
