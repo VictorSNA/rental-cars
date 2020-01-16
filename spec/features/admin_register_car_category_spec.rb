@@ -2,6 +2,9 @@ require 'rails_helper'
 
 feature 'Admin register Car Category' do
     scenario 'sucessfully' do
+        user = User.create!(email: 'teste@teste.com', password: '123456')
+        
+        login_as(user, scope: :user)
         visit root_path
         click_on 'Categorias de carro'
         click_on 'Cadastrar categoria de carro'
@@ -21,6 +24,9 @@ feature 'Admin register Car Category' do
     end
 
     scenario 'and fields must be filled' do
+        user = User.create!(email: 'teste@teste.com', password: '123456')
+
+        login_as(user, scope: :user)
         visit root_path
 
         click_on 'Categorias de carro'
@@ -36,6 +42,9 @@ feature 'Admin register Car Category' do
     end
 
     scenario 'and daily rate, car insurance, third party insurance must be greater than 0' do
+        user = User.create!(email: 'teste@teste.com', password: '123456')
+        
+        login_as(user, scope: :user)
         visit root_path
         
         click_on 'Categorias de carro'
@@ -50,5 +59,11 @@ feature 'Admin register Car Category' do
         expect(page).to have_content('Daily rate must be greater than 0')
         expect(page).to have_content('Car insurance must be greater than 0')
         expect(page).to have_content('Third party insurance must be greater than 0')
+    end
+
+    scenario 'and must be authenticated to register' do
+        visit new_car_category_path
+
+        expect(current_path).to eq(new_user_session_path)
     end
 end
