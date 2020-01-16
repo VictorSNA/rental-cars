@@ -2,6 +2,7 @@ require 'rails_helper'
 
 feature 'Admin edit car model' do
   scenario 'successfully' do
+    user = User.create!(email: 'teste@teste.com', password: '123456')
     manufacturer = Manufacturer.create!(name: 'Chevrolet')
     Manufacturer.create!(name: 'Fiat')
     car_category = CarCategory.create!(name: 'Sedã compacto', daily_rate: 30,
@@ -12,6 +13,7 @@ feature 'Admin edit car model' do
                                 motorization: '1.4', car_category: car_category, 
                                 fuel_type: 'Flex')
 
+    login_as(user, scope: :user)
     visit root_path
     click_on 'Modelos de carro'
     click_on 'Onix hatch'
@@ -32,5 +34,11 @@ feature 'Admin edit car model' do
     expect(page).to have_content('Sedã')
     expect(page).to have_content('Álcool')
     
+  end
+
+  scenario 'and must be authenticated to edit' do
+    visit edit_car_model_path(00000)
+
+    expect(current_path).to eq(new_user_session_path)
   end
 end
