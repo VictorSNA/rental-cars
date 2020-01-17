@@ -1,5 +1,5 @@
 class RentalsController < ApplicationController
-  before_action :authenticate_user!, only: [:index, :search]
+  before_action :authenticate_user!, only: [:index, :search, :new]
   def index
   end
   def new
@@ -13,7 +13,7 @@ class RentalsController < ApplicationController
   def create
     @rental = Rental.new(rental_params)
     @rental.code = SecureRandom.hex(6).upcase
-
+    @rental.user = current_user
     return redirect_to @rental, notice: 'Locação agendada com sucesso' if @rental.save
     @clients = Client.all
     @car_category = CarCategory.all

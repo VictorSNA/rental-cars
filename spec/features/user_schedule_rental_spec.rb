@@ -8,7 +8,7 @@ feature 'User schedule rental' do
     car_category = CarCategory.create!(name: 'AM', daily_rate: 46.54, car_insurance: 28,
                                        third_party_insurance: 10)
     Rental.create!(code: 'VKN0001', start_date: Date.current, end_date: 1.day.from_now,
-                                       client: client, car_category: car_category)
+                                       client: client, car_category: car_category, user: user)
     login_as(user, user: :scope)
     visit root_path
     click_on 'Locações'
@@ -32,6 +32,11 @@ feature 'User schedule rental' do
     expect(page).to have_content(client.cpf)
     expect(page).to have_content('Categoria de carro')
     expect(page).to have_content(car_category.name)
+  end
 
+  scenario 'and must be authenticated to register' do
+    visit new_rental_path
+
+    expect(current_path).to eq(new_user_session_path)
   end
 end
