@@ -8,7 +8,7 @@ feature 'User search rental' do
     car_category = CarCategory.create!(name: 'AM', daily_rate: 46.54, car_insurance: 28,
                                        third_party_insurance: 10)
     Rental.create!(code: 'VKN0001', start_date: Date.current, end_date: 1.day.from_now,
-                   client: client, car_category: car_category)
+                   client: client, car_category: car_category, user: user)
     
     login_as(user, scope: :user)
     
@@ -36,9 +36,9 @@ feature 'User search rental' do
     car_category = CarCategory.create!(name: 'AM', daily_rate: 46.54, car_insurance: 28,
                                        third_party_insurance: 10)
     Rental.create!(code: 'VKN0001', start_date: Date.current, end_date: 1.day.from_now,
-                   client: client, car_category: car_category)
+                   client: client, car_category: car_category, user: user)
     Rental.create!(code: 'VKN0002', start_date: Date.current, end_date: 1.day.from_now,
-                   client: client, car_category: car_category)
+                   client: client, car_category: car_category, user: user)
 
     login_as(user, scope: :user)
 

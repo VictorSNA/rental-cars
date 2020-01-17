@@ -1,0 +1,10 @@
+<h1>Locação - <%= @car_rental.rental.code %></h1>
+
+<section>
+<p>Iniciado com sucesso</p>
+<p>Carro:
+<%= "#{@car_rental.car.full_description}" %>
+</p>
+<p>Client: <%= @car_rental.rental.client.name %></p>
+<p>Usuário: <%= @car_rental.rental.user.email %></p>
+</section>

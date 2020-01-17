@@ -1,7 +1,7 @@
 <h1>Locações</h1>
 <section>
   <% @rentals.each do |rental| %>
-    <p>Código: <%= rental.code %></p>
+    <p>Código: <%= link_to rental.code, begin_rental_path(rental.id) %></p>
     <p>Data de início: <%= rental.start_date.strftime('%d/%m/%y') %></p>
     <p>Data de fim: <%= rental.end_date.strftime('%d/%m/%y') %></p>
     <p>Cliente: <%= rental.client.name %></p>

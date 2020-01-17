@@ -1,0 +1,8 @@
+<h1>Selecionar o carro</h1>
+
+<% @cars.each do |car| %>
+<div id="div-<%= "#{car.id}" %>">
+  <%= "#{car.car_model.manufacturer.name} #{car.car_model.name} - #{car.license_plate} - #{car.color}" %>
+  <%= link_to 'Iniciar', begin_rental_path(car.id), method: :post %>
+</div>
+<% end %>
