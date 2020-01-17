@@ -1,15 +1,31 @@
 class RentalsController < ApplicationController
   before_action :authenticate_user!, only: [:index, :search]
   def index
-    client = Client.create!(name: 'Fulano da Silva', cpf: '127.587.748-60',
-                            email: 'fulanodasilva@teste.com')
-    car_category = CarCategory.create!(name: 'AM', daily_rate: 46.54, car_insurance: 28,
-                                       third_party_insurance: 10)
-    Rental.create!(code: 'VKN0001', start_date: Date.current, end_date: 1.day.from_now,
-                   client: client, car_category: car_category)
+  end
+  def new
+    @rental = Rental.new
+    @clients = Client.all
+    @car_category = CarCategory.all
   end
   def search
     @rentals = Rental.where('code LIKE ?', "%#{params[:q]}%")
-    
+  end
+  def create
+    @rental = Rental.new(rental_params)
+    @rental.code = SecureRandom.hex(6).upcase
+
+    return redirect_to @rental, notice: 'Locação agendada com sucesso' if @rental.save
+    @clients = Client.all
+    @car_category = CarCategory.all
+    render :new
+  end
+  def show
+    @rental = Rental.find(params[:id])
+  end
+  private
+
+  def rental_params
+    params.require(:rental).permit(:start_date, :end_date, 
+                                   :client_id, :car_category_id)
   end
 end

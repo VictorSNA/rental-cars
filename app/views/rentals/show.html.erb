@@ -1,0 +1,8 @@
+<h1>Locação</h1>
+
+Código: <%= @rental.code %>
+Data de início: <%= @rental.start_date.strftime('%d/%m/%y') %>
+Data de fim: <%= @rental.end_date.strftime('%d/%m/%y') %>
+Nome: <%= @rental.client.name %>
+Nome: <%= @rental.client.cpf %>
+Categoria de carro: <%= @rental.car_category.name %>
