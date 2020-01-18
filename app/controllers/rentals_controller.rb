@@ -8,7 +8,8 @@ class RentalsController < ApplicationController
     @car_category = CarCategory.all
   end
   def search
-    @rentals = Rental.where('code LIKE ?', "%#{params[:q]}%")
+    @rentals = Rental.where('code LIKE ?', "%#{params[:q].upcase}%")
+    
   end
   def create
     @rental = Rental.new(rental_params)
@@ -25,11 +26,11 @@ class RentalsController < ApplicationController
   def begin
     @rental = Rental.find(params[:id])
     @cars = Car.where(car_model: @rental.car_category.car_models)
+               .where(status: 0)
   end
   def confirm_begin
-    @rental = Rental.find(params[:id])
     @car = Car.find(params[:id])
-
+    @rental = Rental.find(params[:id])
     @car_rental = CarRental.create!(rental: @rental, car: @car,
                       daily_rate: @car.car_model.car_category.daily_rate,
                       start_mileage: @car.mileage)

@@ -1,4 +1,5 @@
 class Car < ApplicationRecord
+  enum status: {avaliable: 0, unavaliable: 5}, _prefix: :status
   belongs_to :car_model
 
   def full_description
