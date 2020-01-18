@@ -11,4 +11,5 @@ Rails.application.routes.draw do
     get 'begin', on: :member
     post 'begin', on: :member, to: 'rentals#confirm_begin'
   end
+  resources :cars, only: [:index, :new, :create, :show]
 end
