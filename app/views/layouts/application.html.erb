@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <title>RentalCars</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -9,39 +10,52 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-npwrap p-0">
-        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="<%= root_path %>" >
-        <%= image_tag "img/logo_smallest.png", alt: 'logo_img' %>
-        <b>Rental</b> Cars /
-        <h6 class="media-heading">Bem vindo ao sistema de gestão de locação</h6>
-        </a>
-    </nav>
+  <body class="bg-light">
+    <nav class="navbar navbar-light sticky-top bg-white flex-md-nowrap p-0">
     <div class="container-fluid">
-      <div class="row">
-      <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-        <div class="sidebar-sticky">
-          <ul class="nav flex-column">
-          <% if user_signed_in? %>
-            <li class="nav-item"><%= link_to 'Home', root_path %></li>
-            <li class="nav-item"><%= link_to 'Fabricantes', manufacturers_path%></li>
-            <li class="nav-item"><%= link_to 'Filiais', subsidiaries_path %></li>
-            <li class="nav-item"><%= link_to 'Categorias de carro', car_categories_path %></li>
-            <li class="nav-item"><%= link_to 'Modelos de carro', car_models_path  %></li>
-            <li class="nav-item"><%= link_to 'Clientes', clients_path  %></li>
-            <li class="nav-item"><%= link_to 'Locações', rentals_path  %></li>
-            <li class="nav-item"><%= link_to 'Carros', cars_path  %></li>
-            <li class="nav-item"><%= link_to 'Sair', destroy_user_session_path,
-                                                    method: :delete%></li>
-          <% else %>
-            <li class="nav-item"><%= link_to 'Home', root_path %></li>
-            <li class="nav-item"><%= link_to 'Entrar', new_user_session_path  %></li>
-          <% end %>
+      <!-- Logo e texto -->
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#" >
+        <%= image_tag "img/logo_smallest.png", alt: 'logo_img' %>
+        <b>Rental</b> Cars
+      </a>
+
+      <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+        <% if user_signed_in? %>
+          <%= link_to 'Sair', destroy_user_session_path, method: :delete %>
+        <% else %>
+          <%= link_to 'Entrar', new_user_session_path  %>
+        <% end %>
+        </li>
+      </ul>
+    </div>
+    </nav>
+    <% if user_signed_in? %>
+      <nav class="navbar navbar-expand-lg navbar-light bg-white">
+          <div class="container-fluid ">
+          <ul class="nav">
+            <li class="nav-item"><%= link_to 'Home', root_path, class: "nav-link" %></li>
+            <li class="nav-item"><%= link_to 'Fabricantes', manufacturers_path, class: "nav-link" %></li>
+            <li class="nav-item"><%= link_to 'Filiais', subsidiaries_path, class: "nav-link" %></li>
+            <li class="nav-item"><%= link_to 'Categorias de carro', car_categories_path, class: "nav-link" %></li>
+            <li class="nav-item"><%= link_to 'Modelos de carro', car_models_path, class: "nav-link"  %></li>
+            <li class="nav-item"><%= link_to 'Clientes', clients_path, class: "nav-link"  %></li>
+            <li class="nav-item"><%= link_to 'Locações', rentals_path, class: "nav-link"  %></li>
+            <li class="nav-item"><%= link_to 'Carros', cars_path, class: "nav-link"  %></li>
           </ul>
+
+        <form class="form-inline mt-8 mt-md-0">
+          <input class="form-control mr-sm-8" type="text" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+
         </div>
       </nav>
+    <% end %>
     
-    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+    <div class="container-fluid">
+    <div class="row">
+    <main role="main" class="col-md-12 ml-sm-auto col-lg-12 pt-3 px-4">
     <%= alert %>
     <%= notice %>
     <%= yield %>
@@ -49,7 +63,5 @@
     </main>
     </div>
     
-    
-
   </body>
 </html>
