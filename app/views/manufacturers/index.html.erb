@@ -1,5 +1,10 @@
 <h1>Lista de Fabricantes:</h1>
 <p><%= link_to 'Registrar fabricante', new_manufacturer_path %><br></p>
+
+<div class="alert alert-secondary" role="alert">
+    <%= 'Nenhum fabricante cadastrado' if @manufacturers.empty? %>
+    <%= "Fabricante(s) cadastrado(s): #{@manufacturers.count}" if @manufacturers.present? %>
+</div>
 <ul>
 <% @manufacturers.each do |manufacturer| %>
     <li>Fabricante: <%= link_to manufacturer.name, manufacturer %></li>

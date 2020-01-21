@@ -40,7 +40,7 @@ class ManufacturersController < ApplicationController
     def destroy
         @manufacturer = Manufacturer.find(params[:id])
         if @manufacturer.destroy
-            flash[:alert] = "Fabricante excluído com sucesso"
+            flash[:notice] = "Fabricante excluído com sucesso"
             redirect_to manufacturers_path
         else
             redirect_to :show

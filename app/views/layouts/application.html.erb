@@ -56,9 +56,19 @@
     <div class="container-fluid">
     <div class="row">
     <main role="main" class="col-md-12 ml-sm-auto col-lg-12 pt-3 px-4">
-    <%= alert %>
-    <%= notice %>
-    <%= yield %>
+      <%= yield %>
+
+
+      <% if alert %>
+        <div class="alert alert-primary" role="alert">
+          <%= alert %>
+        </div>
+      <% end %>
+      <% if notice %>
+        <div class="alert alert-info" role="alert">
+          <%= notice %>
+        </div>
+      <% end %>
     </div>
     </main>
     </div>
