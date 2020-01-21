@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Car, type: :model do
+describe Car do
   describe '#full_description' do
     it 'should create a full description of car' do
       manufacturer = Manufacturer.create!(name: 'Renault')
