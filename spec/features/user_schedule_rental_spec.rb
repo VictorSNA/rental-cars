@@ -37,4 +37,48 @@ feature 'User schedule rental' do
 
     expect(current_path).to eq(new_user_session_path)
   end
+
+  scenario 'and start and end date must be filled' do
+    user = User.create!(email: 'teste@teste.com', password: '123456')
+    
+    login_as(user, user: :scope)
+    visit root_path
+    click_on 'Locações'
+    click_on 'Agendar locação'
+
+    click_on 'Enviar'
+
+    expect(page).to have_content('Start date não pode ficar vazio')
+    expect(page).to have_content('End date não pode ficar vazio')
+    
+  end
+
+  scenario 'and start cannot be in the past' do
+    user = User.create!(email: 'teste@teste.com', password: '123456')
+    
+    login_as(user, user: :scope)
+    visit root_path
+    click_on 'Locações'
+    click_on 'Agendar locação'
+    fill_in 'Data de início', with: 1.day.ago
+    click_on 'Enviar'
+
+    expect(page).to have_content('Start date não pode estar no passado')
+    
+  end
+
+  scenario 'and start cannot be in greater than end date' do
+    user = User.create!(email: 'teste@teste.com', password: '123456')
+    
+    login_as(user, user: :scope)
+    visit root_path
+    click_on 'Locações'
+    click_on 'Agendar locação'
+    fill_in 'Data de início', with: 1.day.from_now
+    fill_in 'Data de fim', with: Date.current
+    click_on 'Enviar'
+
+    expect(page).to have_content('Start date não pode ser maior que a data final')
+    
+  end
 end

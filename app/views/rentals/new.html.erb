@@ -1,5 +1,11 @@
 <h1>Nova locação</h1>
 <%= form_for @rental do |form| %>
+<% if @rental.errors.any? %>
+  <% @rental.errors.full_messages.each do |msg| %>
+    <%= msg %>
+  <% end %>
+<% end %>
+
   <%= form.label :start_date, 'Data de início' %>
   <%= form.text_field :start_date %>
 
