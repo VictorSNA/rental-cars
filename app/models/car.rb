@@ -1,5 +1,7 @@
 class Car < ApplicationRecord
   belongs_to :car_model
+  has_one :car_rental
+  
   enum status: {avaliable: 0, unavaliable: 5}, _prefix: :status
   
   validates :license_plate, presence: {message: 'Placa não pode ficar vazio'},
@@ -12,4 +14,5 @@ class Car < ApplicationRecord
   def full_description
     "#{car_model.manufacturer.name} #{car_model.name} - #{license_plate} - #{color}"
   end
+
 end

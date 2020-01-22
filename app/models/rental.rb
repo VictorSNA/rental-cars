@@ -2,6 +2,7 @@ class Rental < ApplicationRecord
   belongs_to :client
   belongs_to :car_category
   belongs_to :user
+  has_one :car_rental
   
   validate :start_date_cannot_be_in_the_past
   validate :start_date_cannot_be_greater_than_end_date
@@ -19,5 +20,5 @@ class Rental < ApplicationRecord
       errors.add(:start_date, 'não pode ser maior que a data final')
     end
   end
-  
+
 end

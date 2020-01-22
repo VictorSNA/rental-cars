@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 describe Rental do
+
   describe '#start_date_cannot_be_in_the_past' do
     it 'should prevent start date in the past' do
       rental = Rental.create(start_date: 1.day.ago)

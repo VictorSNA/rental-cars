@@ -16,6 +16,7 @@ class RentalsController < ApplicationController
     @rental.code = SecureRandom.hex(6).upcase
     @rental.user = current_user
     return redirect_to @rental, notice: 'Locação agendada com sucesso' if @rental.save
+
     @clients = Client.all
     @car_category = CarCategory.all
     render :new
