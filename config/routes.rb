@@ -12,4 +12,10 @@ Rails.application.routes.draw do
     post 'begin', on: :member, to: 'rentals#confirm_begin'
   end
   resources :cars, only: [:index, :new, :create, :show]
+
+  namespace 'api' do
+    namespace 'v1' do
+      resources :cars, only: [:show]
+    end
+  end
 end
