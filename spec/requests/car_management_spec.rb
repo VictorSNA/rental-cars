@@ -28,4 +28,32 @@ describe 'Car Management' do
       expect(response).to have_http_status(:not_found)
     end
   end
+  context 'index' do
+    it 'must returns a list with multiple cars' do
+      manufacturer = Manufacturer.create!(name: 'Fiat')
+      car_category = CarCategory.create!(name: 'A', daily_rate: 36.5,
+                                         car_insurance: 32.90,
+                                         third_party_insurance: 30.90)
+      car_model = CarModel.create!(manufacturer: manufacturer,
+                                   car_category: car_category)
+      car = Car.create!(car_model: car_model, license_plate: 'ABC1234',
+                        color: 'Branco', mileage: 100.99)
+      other_car = Car.create!(car_model: car_model, license_plate: 'DEF5678',
+                        color: 'Prata', mileage: 50.99)
+      
+      get '/api/v1/cars'
+
+      json = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response).to have_http_status(:ok)
+      expect(json[0][:car_model_id]).to eq car.car_model.id
+      expect(json[0][:license_plate]).to eq car.license_plate
+      expect(json[0][:color]).to eq car.color
+      expect(json[0][:mileage]).to eq '100.99'
+      expect(json[1][:car_model_id]).to eq other_car.car_model.id
+      expect(json[1][:license_plate]).to eq other_car.license_plate
+      expect(json[1][:color]).to eq other_car.color
+      expect(json[1][:mileage]).to eq '50.99'
+    end
+  end
 end
