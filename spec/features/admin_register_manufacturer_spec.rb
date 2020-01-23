@@ -12,6 +12,7 @@ feature 'Admin register manufacturer' do
     fill_in 'Nome', with: 'Fiat'
     click_on 'Enviar'
 
+    expect(page).to have_content('Fabricante registrado com sucesso')
     expect(page).to have_content('Fiat')
   end
 
