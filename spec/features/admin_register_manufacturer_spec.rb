@@ -47,4 +47,13 @@ feature 'Admin register manufacturer' do
     expect(current_path).to eq(new_user_session_path)
   end
 
+  scenario 'and name length must be lesser than 64 characters' do
+    user = User.create!(email: 'teste@teste.com', password: '123456')
+    login_as(user, scope: :user)
+    visit new_manufacturer_path
+
+    fill_in 'Nome', with: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+    click_on 'Enviar'
+    expect(page).to have_content('Name muito grande')
+  end
 end
