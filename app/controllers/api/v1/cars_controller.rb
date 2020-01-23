@@ -5,17 +5,18 @@ class Api::V1::CarsController < Api::V1::ApiController
     
   end
   def show
-    return render json: @car, status: :ok if @car = Car.find_by(params[:id])
-
-    head 404
+    @car = Car.find(params[:id])
+    render json: @car, status: :ok
   end
   def create
-    @car = Car.new(car_params)
-    return render json: @car, status: :ok if @car.save
-
-    head 412
+    @car = Car.create!(car_params)
+    render json: @car, status: :ok
   end
-
+  def update
+    @car = Car.find(params[:id])
+    @car.status = 5
+    render json: @car, status: :ok if @car.update!(car_params)
+  end
   private
 
   def car_params

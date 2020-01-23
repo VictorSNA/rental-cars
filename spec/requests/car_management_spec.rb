@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Car Management' do
   context 'show' do
-    it 'renders a json successfully' do
+    it 'render a json successfully' do
       manufacturer = Manufacturer.create!(name: 'Fiat')
       car_category = CarCategory.create!(name: 'A', daily_rate: 36.5,
                                          car_insurance: 32.90,
@@ -24,8 +24,9 @@ describe 'Car Management' do
 
     it 'must not return cars that not exits' do
       get api_v1_car_path(999)
-
+      
       expect(response).to have_http_status(:not_found)
+      expect(response.body).to include "Couldn't find Car with 'id'=999"
     end
   end
   context 'index' do
@@ -66,7 +67,7 @@ describe 'Car Management' do
       car_model = CarModel.create!(manufacturer: manufacturer,
                                    car_category: car_category)
 
-      post '/api/v1/cars', params: {license_plate: 'DBZ9090', color: 'Vermelho',
+      post api_v1_cars_path, params: {license_plate: 'DBZ9090', color: 'Vermelho',
                                    mileage: 70.90, car_model_id: car_model.id}
       
       json = JSON.parse(response.body, symbolize_names: true)
@@ -76,6 +77,32 @@ describe 'Car Management' do
       expect(json[:color]).to eq 'Vermelho'
       expect(json[:mileage]).to eq '70.9'
       expect(json[:car_model_id]).to eq car_model.id
+    end
+    it 'if records not invalid' do
+      post api_v1_cars_path, params: {banana: 'DBZ9090', laranja: 'Vermelho',
+                                      maça: 70.90, abacaxi: 'anything'}
+
+      expect(response).to have_http_status(:precondition_failed)
+    end
+  end
+
+  context 'car_statuses' do
+    it 'must switch car status to unavaliable' do
+      manufacturer = Manufacturer.create!(name: 'Fiat')
+      car_category = CarCategory.create!(name: 'A', daily_rate: 36.5,
+                                         car_insurance: 32.90,
+                                         third_party_insurance: 30.90)
+      car_model = CarModel.create!(manufacturer: manufacturer,
+                                   car_category: car_category)
+      car = Car.create!(car_model: car_model, license_plate: 'ABC1234',
+                        color: 'Branco', mileage: 100.99)
+    
+      patch api_v1_car_path(car), params: {status: 5}
+
+      json = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response).to have_http_status :ok
+      expect(json[:status]).to eq 'unavaliable'
     end
   end
 end
