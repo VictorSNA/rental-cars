@@ -7,4 +7,8 @@
 </p>
 <p>Client: <%= @car_rental.rental.client.name %></p>
 <p>Usuário: <%= @car_rental.rental.user.email %></p>
+<p>Diária: R$ <%= @car_rental.rental.car_category.daily_rate %></p>
+<p>Seguro do automóvel: R$ <%= @car_rental.rental.car_category.car_insurance %></p>
+<p>Seguro contra terceiros: R$ <%= @car_rental.rental.car_category.third_party_insurance %></p>
+<p>Total R$ <%= @car_rental.daily_rate_total %></p>
 </section>

@@ -69,6 +69,15 @@ feature 'User begin rental' do
     expect(page).to have_content('Fulano da Silva')
     expect(page).to have_content('Usuário')
     expect(page).to have_content('teste@teste.com')
+    expect(page).to have_content('Diária')
+    expect(page).to have_content('R$ 46.54')
+    expect(page).to have_content('Seguro do automóvel')
+    expect(page).to have_content('R$ 28')
+    expect(page).to have_content('Seguro contra terceiros')
+    expect(page).to have_content('R$ 10')
+    expect(page).to have_content('Total')
+    expect(page).to have_content('R$ 84.54')
+    
   end
 
   scenario 'and unavaliable cars must be blocked via button' do

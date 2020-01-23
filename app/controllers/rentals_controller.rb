@@ -34,6 +34,8 @@ class RentalsController < ApplicationController
     @rental = Rental.find(params[:id])
     @car_rental = CarRental.create!(rental: @rental, car: @car,
                       daily_rate: @car.car_model.car_category.daily_rate,
+                      car_insurance: @car.car_model.car_category.car_insurance,
+                      third_party_insurance: @car.car_model.car_category.third_party_insurance,
                       start_mileage: @car.mileage)
   end
   private
