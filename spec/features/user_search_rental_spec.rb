@@ -5,11 +5,16 @@ feature 'User search rental' do
     user = User.create!(email: 'teste@teste.com', password: '123456')
     client = Client.create!(name: 'Fulano da Silva', cpf: '127.587.748-60',
                             email: 'fulanodasilva@teste.com')
+    manufacturer = Manufacturer.create!(name:'Fiat')
     car_category = CarCategory.create!(name: 'AM', daily_rate: 46.54, car_insurance: 28,
                                        third_party_insurance: 10)
+    car_model = CarModel.create!(name: 'Kwid', year: '2020', manufacturer: manufacturer,
+                                 motorization: '1.0', car_category: car_category,
+                                 fuel_type: 'Flex')
+    Car.create!(license_plate: 'ABC1234', color: 'Branco', car_model: car_model,
+                mileage: 10000, status: 0)
     Rental.create!(code: 'VKN0001', start_date: Date.current, end_date: 1.day.from_now,
                    client: client, car_category: car_category, user: user)
-    
     login_as(user, scope: :user)
     
     visit root_path
@@ -43,7 +48,8 @@ feature 'User search rental' do
                                  fuel_type: 'Flex')
     car = Car.create!(license_plate: 'ABC1234', color: 'Branco', car_model: car_model,
                               mileage: 10000, status: 0)
-    
+    car = Car.create!(license_plate: 'DEF5678', color: 'Branco', car_model: car_model,
+                      mileage: 10000, status: 0)
     Rental.create!(code: 'VKN0001', start_date: Date.current, end_date: 1.day.from_now,
                    client: client, car_category: car_category, user: user)
     Rental.create!(code: 'VKN0002', start_date: Date.current, end_date: 1.day.from_now,

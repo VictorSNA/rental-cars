@@ -16,12 +16,13 @@ feature 'User begin rental' do
                                  fuel_type: 'Flex')
     client = Client.create!(name: 'Fulano da Silva', cpf: '127.587.748-60',
                             email: 'fulanodasilva@teste.com')
-    Rental.create!(code: 'VKN0001', start_date: Date.current, end_date: 1.day.from_now,
-    client: client, car_category: car_category, user: user)
     Car.create!(license_plate: 'ABC1234', color: 'Branco', car_model: car_model,
                 mileage: 10000, status: 0)
     Car.create!(license_plate: 'DEF5678', color: 'Azul', car_model: another_car_model,
                 mileage: 10000, status: 0)
+    Rental.create!(code: 'VKN0001', start_date: Date.current, end_date: 1.day.from_now,
+    client: client, car_category: car_category, user: user)
+    
     
     login_as(user, scope: :user)
     visit root_path
@@ -46,10 +47,10 @@ feature 'User begin rental' do
                                  fuel_type: 'Flex')
     client = Client.create!(name: 'Fulano da Silva', cpf: '127.587.748-60',
                             email: 'fulanodasilva@teste.com')
+    car = Car.create!(license_plate: 'ABC1234', color: 'Branco', car_model: car_model,
+                      mileage: 10000, status: 0)
     Rental.create!(code: 'VKN0001', start_date: Date.current, end_date: 1.day.from_now,
     client: client, car_category: car_category, user: user)
-    car = Car.create!(license_plate: 'ABC1234', color: 'Branco', car_model: car_model,
-                mileage: 10000, status: 0)
     
     login_as(user, scope: :user)
     visit root_path
@@ -90,13 +91,12 @@ feature 'User begin rental' do
                                  fuel_type: 'Flex')
     client = Client.create!(name: 'Fulano da Silva', cpf: '127.587.748-60',
                             email: 'fulanodasilva@teste.com')
-    Rental.create!(code: 'VKN0001', start_date: Date.current, end_date: 1.day.from_now,
-    client: client, car_category: car_category, user: user)
     Car.create!(license_plate: 'ABC1234', color: 'Branco', car_model: car_model,
                 mileage: 10000, status: 0)
     Car.create!(license_plate: 'DEF5678', color: 'Azul', car_model: car_model,
                 mileage: 10000, status: 5)
-
+    Rental.create!(code: 'VKN0001', start_date: Date.current, end_date: 1.day.from_now,
+                   client: client, car_category: car_category, user: user)
     login_as(user, scope: :user)
     visit root_path
     click_on 'Locações'

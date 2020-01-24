@@ -138,6 +138,7 @@ describe Rental do
 
         expect(result).to eq 'avaliable'
       end
+
     end
   end
 end
