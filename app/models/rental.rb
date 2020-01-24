@@ -44,7 +44,7 @@ class Rental < ApplicationRecord
     avaliable_cars = Car.where(status: 'avaliable')
                .joins(:car_model)
                .where(car_models: {car_category: car_category})
-    scheduled_rentals.count <= avaliable_cars.count
+    scheduled_rentals.count < avaliable_cars.count
   end
 
 end
