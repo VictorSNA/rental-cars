@@ -111,6 +111,41 @@ feature 'Admin register Car Category' do
         expect(page).to have_content('Third party insurance must be greater than 0')
     end
 
+    scenario 'and daily rate must be lesser or equal than 1 million' do
+        user = User.create!(email: 'teste@teste.com', password: '123456')
+        
+        login_as(user, scope: :user)
+        visit new_car_category_path
+
+        fill_in 'Diária', with: 1000001
+        click_on 'Enviar'
+
+        expect(page).to have_content('Daily rate must be less than or equal to 10000')
+    end
+
+    scenario 'and car insurance must be lesser or equal than 1 million' do
+        user = User.create!(email: 'teste@teste.com', password: '123456')
+        
+        login_as(user, scope: :user)
+        visit new_car_category_path
+
+        fill_in 'Seguro do automóvel', with: 1000001
+        click_on 'Enviar'
+
+        expect(page).to have_content('Car insurance must be less than or equal to 10000')
+    end
+
+    scenario 'and third party insurance must be lesser or equal than 1 million' do
+        user = User.create!(email: 'teste@teste.com', password: '123456')
+        
+        login_as(user, scope: :user)
+        visit new_car_category_path
+
+        fill_in 'Seguro contra terceiros', with: 1000001
+        click_on 'Enviar'
+
+        expect(page).to have_content('Third party insurance must be less than or equal to 10000')
+    end
     scenario 'and must be authenticated to register' do
         visit new_car_category_path
 
