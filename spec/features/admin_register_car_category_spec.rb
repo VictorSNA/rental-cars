@@ -66,6 +66,20 @@ feature 'Admin register Car Category' do
         login_as(user, scope: :user)
         visit new_car_category_path
 
+        fill_in 'Nome', with: 'a' * 33
+        click_on 'Enviar'
+
+        expect(page).to have_content('Name muito grande')
+
+    end
+
+    scenario 'and fields must be filled' do
+        user = User.create!(email: 'teste@teste.com', password: '123456')
+        CarCategory.create!(name:'AM', daily_rate: 30, car_insurance: 300, third_party_insurance: 300)
+
+        login_as(user, scope: :user)
+        visit new_car_category_path
+
         fill_in 'Nome', with: 'am'
         fill_in 'Diária', with: 30
         fill_in 'Seguro do automóvel', with: 300
