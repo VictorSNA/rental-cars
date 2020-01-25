@@ -1,7 +1,29 @@
-<h1>Categorias de carro</h1>
-<p><%= link_to 'Cadastrar categoria de carro', new_car_category_path %></p>
-<ul>
-<% @car_categories.each do |car_category| %>
-    <li><%= link_to car_category.name, car_category %></li>
+<% content_for :navigation do %>
+active
 <% end %>
-</ul>
+<div class="row">
+<h1 class="col" style="max-width: 260px;">Categorias de carro:</h1>
+<%= link_to 'Cadastrar categoria de carro', new_car_category_path, class: 'badge badge-pill badge-light h-100 mt-1', style: "color: #336600; font-size: 85%" %>
+</div>
+
+<div class="alert alert-light pt-1 pb-1" role="alert">
+    <%= 'Nenhuma categoria de carro cadastrada' if @car_categories.empty? %>
+    <%= "Categoria de carro(s) cadastrado(s): #{@car_categories.count}" if @car_categories.present? %>
+</div>
+
+<% if @car_categories.any? %>
+<table class="table table-sm table-light table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Nome da categoria</th>
+    </tr>
+  </thead>
+  <tbody>
+<% @car_categories.each do |car_category| %>
+    <tr>
+      <td><%= link_to car_category.name, car_category %></td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+<% end %>

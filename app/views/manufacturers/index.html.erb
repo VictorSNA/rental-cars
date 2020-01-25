@@ -1,12 +1,30 @@
-<h1>Lista de Fabricantes:</h1>
-<p><%= link_to 'Registrar fabricante', new_manufacturer_path %><br></p>
+<% content_for :navigation do %>
+active
+<% end %>
 
-<div class="alert alert-secondary" role="alert">
+<div class="row">
+<h1 class="col" style="max-width: 260px;min-height: 40px;">Lista dos fabricantes</h1>
+<%= link_to 'Registrar fabricante', new_manufacturer_path, class: 'badge badge-pill badge-light h-100', style: "color: #4300D2; font-size: 95%" %>
+</div>
+
+<div class="alert alert-light pt-1 pb-1" role="alert">
     <%= 'Nenhum fabricante cadastrado' if @manufacturers.empty? %>
     <%= "Fabricante(s) cadastrado(s): #{@manufacturers.count}" if @manufacturers.present? %>
 </div>
-<ul>
+
+<% if @manufacturers.any? %>
+<table class="table table-sm table-light table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Nome do fabricante</th>
+    </tr>
+  </thead>
+  <tbody>
 <% @manufacturers.each do |manufacturer| %>
-    <li>Fabricante: <%= link_to manufacturer.name, manufacturer %></li>
+    <tr>
+      <td><%= link_to manufacturer.name, manufacturer %></td>
+    </tr>
 <% end %>
-</ul>
+  </tbody>
+</table>
+<% end %>

@@ -1,7 +1,29 @@
-<h1>Modelos de carro</h1>
-<p><%= link_to 'Registrar modelo de carro', new_car_model_path %></p>
-<ul>
-<% @car_models.each do |car_model| %>
-    <li><%= link_to car_model.name, car_model %></li>
+<% content_for :navigation do %>
+active
 <% end %>
-</ul>
+<div class="row">
+<h1 class="col" style="max-width: 260px;">Modelos de carro</h1>
+<%= link_to 'Registrar modelo de carro', new_car_model_path, class: 'badge badge-pill badge-light h-100 mt-1', style: "color: #336600; font-size: 85%" %>
+</div>
+
+<div class="alert alert-light pt-1 pb-1" role="alert">
+    <%= 'Nenhum modelo de carro cadastrada' if @car_models.empty? %>
+    <%= "Modelo(s) de carro cadastrado(s): #{@car_models.count}" if @car_models.present? %>
+</div>
+
+<% if @car_models.any? %>
+<table class="table table-sm table-light table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Nome do categoria</th>
+    </tr>
+  </thead>
+  <tbody>
+<% @car_models.each do |car_model| %>
+    <tr>
+      <td><%= link_to car_model.name, car_model %></td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+<% end %>

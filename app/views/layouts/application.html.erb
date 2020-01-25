@@ -6,17 +6,17 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body class="bg-light">
     <nav class="navbar navbar-light sticky-top bg-white flex-md-nowrap p-0">
-    <div class="container-fluid">
+    <div class="container-fluid pl-0">
       <!-- Logo e texto -->
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#" >
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#" style= "color: #a560a5;">
         <%= image_tag "img/logo_smallest.png", alt: 'logo_img' %>
-        <b>Rental</b> Cars
+        <b>Rental Cars</b> 
       </a>
 
       <ul class="navbar-nav px-3">
@@ -31,33 +31,50 @@
     </div>
     </nav>
     <% if user_signed_in? %>
-      <nav class="navbar navbar-expand-lg navbar-light bg-white">
+      <nav class="navbar navbar-expand-lg navbar-light bg-white pl-0">
           <div class="container-fluid ">
           <ul class="nav">
-            <li class="nav-item"><%= link_to 'Home', root_path, class: "nav-link" %></li>
-            <li class="nav-item"><%= link_to 'Fabricantes', manufacturers_path, class: "nav-link" %></li>
-            <li class="nav-item"><%= link_to 'Filiais', subsidiaries_path, class: "nav-link" %></li>
-            <li class="nav-item"><%= link_to 'Categorias de carro', car_categories_path, class: "nav-link" %></li>
-            <li class="nav-item"><%= link_to 'Modelos de carro', car_models_path, class: "nav-link"  %></li>
-            <li class="nav-item"><%= link_to 'Clientes', clients_path, class: "nav-link"  %></li>
-            <li class="nav-item"><%= link_to 'Locações', rentals_path, class: "nav-link"  %></li>
-            <li class="nav-item"><%= link_to 'Carros', cars_path, class: "nav-link"  %></li>
+            <li class="nav-item text-center <%= yield :navigation if current_page?(root_path) %>">
+            <%= image_tag "img/homepage_ico.png", alt: 'homepage-ico' %>
+            <%= link_to 'Home', root_path, class: "nav-link px-0" %></li>
+            <li class="nav-item text-center <%= yield :navigation if current_page?(manufacturers_path) %>">
+            <%= image_tag "img/car_ico.png", alt: 'manufacturer-ico' %>
+            <%= link_to 'Fabricantes', manufacturers_path, class: "nav-link" %></li>
+            <li class="nav-item text-center <%= yield :navigation if current_page?(subsidiaries_path) %>">
+            <%= image_tag "img/subsidiary_ico.png", alt: 'subsidiary_ico' %>
+            <%= link_to 'Filiais', subsidiaries_path, class: "nav-link" %></li>
+            <li class="nav-item text-center <%= yield :navigation if current_page?(car_categories_path) %>">
+            <%= image_tag "img/car_category_ico.png", alt: 'car_category_ico' %>
+            <%= link_to 'Categorias de carro', car_categories_path, class: "nav-link" %></li>
+            <li class="nav-item text-center <%= yield :navigation if current_page?(car_models_path)%>">
+            <%= image_tag "img/car_model_ico.png", alt: 'car_model_ico' %>
+            <%= link_to 'Modelos de carro', car_models_path, class: "nav-link"  %></li>
+            <li class="nav-item text-center <%= yield :navigation if current_page?(clients_path)%>">
+            <%= image_tag "img/clients_ico.png", alt: 'clients_ico' %>
+            <%= link_to 'Clientes', clients_path, class: "nav-link" %></li>
+            <li class="nav-item text-center <%= yield :navigation if current_page?(rentals_path)%>">
+            <%= image_tag "img/rental_ico.png", alt: 'rental_ico' %>
+            <%= link_to 'Locações', rentals_path, class: "nav-link" %></li>
+            <li class="nav-item text-center <%= yield :navigation if current_page?(cars_path)%>">
+            <%= image_tag "img/cars_ico.png", alt: 'cars_ico' %>
+            <%= link_to 'Carros', cars_path, class: "nav-link"  %></li>
           </ul>
-
-        <form class="form-inline mt-8 mt-md-0">
-          <input class="form-control mr-sm-8" type="text" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
 
         </div>
       </nav>
     <% end %>
     
-    <div class="container-fluid">
-    <div class="row">
-    <main role="main" class="col-md-12 ml-sm-auto col-lg-12 pt-3 px-4">
+    <div class="container-fluid h-100">
+    <div class="row h-100">
+    <main role="main" class="col-md-12 ml-sm-auto col-lg-12 p-0 h-100">
+      <div class="jumbotron pt-4 pb-4 h-100" style="background-color: #ddd5f5;border-top: 1px solid #cccccc">
+      <% unless current_page?(root_path) %>
+      <div class="container rounded pt-4 pb-3 text-white" style="background-color:  #270570">
       <%= yield %>
-
+      <% else %>
+      <div class="container pt-4 pb-3 text-white h-100" style="max-width: 1055px;background: url('assets/img/start_image_background-3x') no-repeat;">
+      <%= yield %>
+      <% end %>
 
       <% if alert %>
         <div class="alert alert-primary" role="alert">
@@ -65,10 +82,13 @@
         </div>
       <% end %>
       <% if notice %>
-        <div class="alert alert-info" role="alert">
+        <div class="alert alert-light" role="alert">
           <%= notice %>
         </div>
       <% end %>
+      </div>
+      </div>
+
     </div>
     </main>
     </div>

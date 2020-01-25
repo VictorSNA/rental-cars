@@ -1,8 +1,33 @@
-<h1>Lista de Filiais</h1>
-<%= link_to 'Cadastrar Filial', new_subsidiary_path %>
+<% content_for :navigation do %>
+active
+<% end %>
+<div class="row">
+<h1 class="col" style="max-width: 260px;">Lista de Filiais:</h1>
+<%= link_to 'Cadastrar Filial', new_subsidiary_path, class: 'badge badge-pill badge-light h-100 mt-1', style: "color: #336600; font-size: 85%" %>
+</div>
 
+<div class="alert alert-light pt-1 pb-1" role="alert">
+    <%= 'Nenhuma filial cadastrada' if @subsidiaries.empty? %>
+    <%= "Filiail(s) cadastrado(s): #{@subsidiaries.count}" if @subsidiaries.present? %>
+</div>
+
+<% if @subsidiaries.any? %>
+<table class="table table-sm table-light table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Nome do filial</th>
+      <th scope="col">CNPJ</th>
+      <th scope="col">Endereço</th>
+    </tr>
+  </thead>
+  <tbody>
 <% @subsidiaries.each do |subsidiary| %>
-    <%= link_to subsidiary.name, subsidiary %>
-    <%= subsidiary.cnpj %>
-    <%= subsidiary.address %>
+    <tr>
+      <td><%= link_to subsidiary.name, subsidiary %></td>
+      <td><%= link_to subsidiary.cnpj, subsidiary %></td>
+      <td><%= link_to subsidiary.address, subsidiary%></td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
 <% end %>

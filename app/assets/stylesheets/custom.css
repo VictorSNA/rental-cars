@@ -1,0 +1,36 @@
+html, body {
+  height: 100%;
+}
+h1 {
+  /* Extra small devices (phones, less than 768px) */
+  font-size: 16px;
+
+  /* Small devices (tablets, 768px and up) */
+  @media (min-width: 768px) {
+    font-size: 18px;
+  }
+
+  /* Medium devices (desktops, 992px and up) */
+  @media (min-width: 992px) {
+    font-size: 20px;
+  }
+
+  /* Large devices (large desktops, 1200px and up) */
+  @media (min-width: 1200px) {
+    font-size: 20px;
+    font-weight: bold;
+  }
+} 
+a {
+  color: #666666;
+  font-size: 0.98em;
+}
+.active{
+  border-bottom: 2px solid #270570;
+  color: #270570; 
+}
+
+.active a{
+  color: #270570;
+  font-weight: bold;
+}

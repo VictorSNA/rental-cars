@@ -1,9 +1,33 @@
-<h1>Clientes</h1>
-<%= link_to 'Registrar cliente', new_client_path %>
-<ul>
-<% @clients.each do |client| %>
-  <li><%= link_to client.name, client %></li>
-  <li><%= client.cpf %></li>
-  <li><%= client.email %></li>
+<% content_for :navigation do %>
+active
 <% end %>
-</ul>
+<div class="row">
+<h1 class="col" style="max-width: 260px;">Clientes:</h1>
+<%= link_to 'Registrar cliente', new_client_path, class: 'badge badge-pill badge-light h-100 mt-1', style: "color: #336600; font-size: 85%" %>
+</div>
+
+<div class="alert alert-light pt-1 pb-1" role="alert">
+    <%= 'Nenhum cliente cadastrado' if @clients.empty? %>
+    <%= "Cliente(s) cadastrado(s): #{@clients.count}" if @clients.present? %>
+</div>
+
+<% if @clients.any? %>
+<table class="table table-sm table-light table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Nome do cliente</th>
+      <th scope="col">Email</th>
+      <th scope="col">CPF</th>
+    </tr>
+  </thead>
+  <tbody>
+<% @clients.each do |client| %>
+    <tr>
+      <td><%= link_to client.name, client %></td>
+      <td><%= link_to client.email, client %></td>
+      <td><%= link_to client.cpf, client %></td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+<% end %>
