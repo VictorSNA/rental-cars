@@ -35,6 +35,23 @@ feature 'Admin edit manufacturer' do
     expect(page).to have_content('Fornecedor já cadastrado')
   end
 
+  scenario 'and must be unique and case sensitive' do
+    user = User.create!(email: 'teste@teste.com', password: '123456')
+    login_as(user, scope: :user)
+
+    Manufacturer.create!(name: 'Fiat')
+    Manufacturer.create!(name: 'Honda')
+
+    visit root_path
+    click_on 'Fabricantes'
+    click_on 'Fiat'
+    click_on 'Editar'
+    fill_in 'Nome', with: 'honda'
+    click_on 'Enviar'
+
+    expect(page).to have_content('Fornecedor já cadastrado')
+  end
+
   scenario 'and fields must be filled' do
     user = User.create!(email: 'teste@teste.com', password: '123456')
     Manufacturer.create!(name: 'Honda')

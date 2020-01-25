@@ -30,6 +30,19 @@ feature 'Admin register manufacturer' do
     expect(page).to have_content('Fornecedor já cadastrado')
   end
 
+  scenario 'and must be unique and case sensitive' do
+    user = User.create!(email: 'teste@teste.com', password: '123456')
+    Manufacturer.create(name: 'Fiat')
+
+    login_as(user, scope: :user)
+    visit root_path
+    click_on 'Fabricantes'
+    click_on 'Registrar fabricante'
+    fill_in 'Nome', with: 'fiat'
+    click_on 'Enviar'
+    
+    expect(page).to have_content('Fornecedor já cadastrado')
+  end
   scenario 'and fields must be filled' do
     user = User.create!(email: 'teste@teste.com', password: '123456')
     login_as(user, scope: :user)
