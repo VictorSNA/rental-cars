@@ -2,8 +2,10 @@
 <%= form_with model: @subsidiary, local: true do |form| %>
 <% if @subsidiary.errors.any? %>
     <% @subsidiary.errors.full_messages.each do |msg| %>
-        <p><%= msg %></p>
-    <% end %>
+        <div class="alert alert-danger" role="alert">
+            <%= msg %>
+        </div>
+        <% end %>
 <% end %>
     <p>
         <%= form.label :name, 'Nome' %>

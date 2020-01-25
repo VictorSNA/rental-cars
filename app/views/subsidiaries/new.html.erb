@@ -2,9 +2,10 @@
 
 <%= form_with model: @subsidiary, local: true do |form| %>
     <% if @subsidiary.errors.any? %>
-        <p>Você deve corrigir o(s) seguinte(s) erro(s)</p>
         <% @subsidiary.errors.full_messages.each do |msg| %>
+        <div class="alert alert-danger" role="alert">
             <%= msg %>
+        </div>
         <% end %>
     <% end %>
     <p>
