@@ -59,7 +59,7 @@ feature 'User register client' do
     expect(page).to have_content('Email muito grande')
   end
 
-  scenario 'and CPF must be equal to 14' do
+  scenario 'and CPF must be less than 14' do
     user = User.create!(email: 'teste@teste.com', password: '123456')
 
     login_as(user, scope: :user)
@@ -67,6 +67,17 @@ feature 'User register client' do
     fill_in 'CPF', with: 'a' * 15
     click_on 'Enviar'
 
-    expect(page).to have_content('Cpf muito grande')
+    expect(page).to have_content('Cpf inválido')
+  end
+
+  scenario 'and CPF must be equal than 14' do
+    user = User.create!(email: 'teste@teste.com', password: '123456')
+
+    login_as(user, scope: :user)
+    visit new_client_path
+    fill_in 'CPF', with: 'a' * 13
+    click_on 'Enviar'
+
+    expect(page).to have_content('Cpf inválido')
   end
 end
