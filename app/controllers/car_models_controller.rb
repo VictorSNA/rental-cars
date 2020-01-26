@@ -1,6 +1,6 @@
 class CarModelsController < ApplicationController
     before_action :authenticate_user!, only:[:index, :show, :edit, :new]
-    before_action :set_car_model, only:[:show,:edit,:update]
+    before_action :set_car_model, only:[:show,:edit,:update,:destroy]
     def index
         @car_models = CarModel.all
     end
@@ -39,7 +39,11 @@ class CarModelsController < ApplicationController
         @car_categories = CarCategory.all
         render :edit
     end
+    def destroy
+        return redirect_to car_models_path, notice: 'Modelo de carro excluído com sucesso' if @car_model.destroy
 
+        redirect_to @car_model
+    end
     private
 
     def set_car_model

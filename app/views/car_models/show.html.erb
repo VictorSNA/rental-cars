@@ -9,4 +9,5 @@
 <p>Tipo de combustível: <%= @car_model.fuel_type %></p>
 
 <%= link_to 'Editar', edit_car_model_path(@car_model) %>
+<%= link_to 'Deletar', car_model_path(@car_model), method: :delete %>
 <%= link_to 'Voltar', car_models_path %>

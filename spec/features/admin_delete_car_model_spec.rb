@@ -1,13 +1,15 @@
 require 'rails_helper'
 
 feature 'Admin delete car model' do
-    xscenario 'successfully' do
+    scenario 'successfully' do
+        user = User.create!(email: 'teste@teste.com', password: '123456')
         manufacturer = Manufacturer.create!(name: 'Chevrolet')
         car_category = CarCategory.create!(name: 'Sedã compacto', daily_rate: 30,
                                         car_insurance: 300, third_party_insurance: 300)
         car_model = CarModel.create!(name: 'Onix hatch', year: '2019', manufacturer: manufacturer,
                             motorization: '1.4', car_category: car_category, fuel_type: 'Flex')
 
+        login_as(user, scope: :user)
         visit root_path
         click_on 'Modelos de carro'
         click_on 'Onix hatch'
