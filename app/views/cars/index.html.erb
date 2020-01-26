@@ -1,5 +1,36 @@
 <% content_for :navigation do %>
 active
 <% end %>
-<h1>Carros</h1>
-<%= link_to 'Cadastrar carro', new_car_path %>
+
+<div class="row">
+<h1 class="col-md-auto">Carros</h1>
+<%= link_to 'Cadastrar carro', new_car_path, class: 'badge badge-pill badge-light h-100', style: "color: #4300D2; font-size: 95%" %>
+</div>
+
+<div class="alert alert-light pt-1 pb-1" role="alert">
+    <%= 'Nenhum carro cadastrado' if @cars.empty? %>
+    <%= "Carro(s) cadastrado(s): #{@cars.count}" if @cars.present? %>
+</div>
+
+<% if @cars.any? %>
+<table class="table table-sm table-light table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Placa</th>
+      <th scope="col">Modelo do carro</th>
+      <th scope="col">Quilometragem</th>
+      <th scope="col">Cor</th>
+    </tr>
+  </thead>
+  <tbody>
+<% @cars.each do |car| %>
+    <tr>
+      <td><%= link_to car.license_plate, car %></td>
+      <td><%= link_to car.car_model.name, car %></td>
+      <td><%= link_to car.mileage, car %></td>
+      <td><%= link_to car.color, car %></td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+<% end %>
