@@ -1,4 +1,13 @@
 <%= form_for @client do |form| %>
+
+<% if @client.errors.any? %>
+  <% @client.errors.full_messages.each do |msg| %>
+    <div class="alert alert-danger" role="alert">
+      <%= msg %>
+    </div>
+  <% end %>
+<% end %>
+
   <p>
     <%= form.label :name, 'Nome' %>
     <%= form.text_field :name %>
