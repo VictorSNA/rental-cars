@@ -1,7 +1,9 @@
 <%= form_with model: @car_category, local: true do |form| %>
 <% if @car_category.errors.any? %>
-<% @car_category.errors.full_messages.each do |message| %>
-    <%= message %>
+<% @car_category.errors.full_messages.each do |msg| %>
+    <div class="alert alert-danger" role="alert">
+      <%= msg %>
+    </div>
 <% end %>
 <% end %>
     <p>
