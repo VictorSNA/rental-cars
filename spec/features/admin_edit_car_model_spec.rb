@@ -41,4 +41,30 @@ feature 'Admin edit car model' do
 
     expect(current_path).to eq(new_user_session_path)
   end
+
+  scenario 'and fields must be present' do
+    user = User.create!(email: 'teste@teste.com', password: '123456')
+    manufacturer = Manufacturer.create!(name: 'Chevrolet')
+    Manufacturer.create!(name: 'Fiat')
+    car_category = CarCategory.create!(name: 'Sedã compacto', daily_rate: 30,
+                                      car_insurance: 300, third_party_insurance: 300)
+    CarCategory.create!(name: 'Sedã', daily_rate: 20,
+                      car_insurance: 280, third_party_insurance: 280)
+    car_model = CarModel.create!(name: 'Onix hatch', year: '2019', manufacturer: manufacturer,
+                                motorization: '1.4', car_category: car_category, 
+                                fuel_type: 'Flex')
+    login_as(user, scope: :user)
+    visit edit_car_model_path(car_model)
+    fill_in 'Nome', with: ''
+    fill_in 'Ano', with: ''
+    fill_in 'Motorização', with: ''
+    fill_in 'Tipo de combustível', with: ''
+
+    click_on 'Enviar'
+
+    expect(page).to have_content('Name não pode ficar vazio')
+    expect(page).to have_content('Year não pode ficar vazio')
+    expect(page).to have_content('Motorization não pode ficar vazio')
+    expect(page).to have_content('Fuel type não pode ficar vazio')
+  end
 end

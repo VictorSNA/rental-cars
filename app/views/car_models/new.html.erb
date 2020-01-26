@@ -1,4 +1,11 @@
 <%= form_with model:@car_model, local: true do |form| %>
+<% if @car_model.errors.any? %>
+  <% @car_model.errors.full_messages.each do |msg| %>
+    <div class="alert alert-danger" role="alert">
+      <%= msg %>
+    </div>
+  <% end %>
+<% end %>
     <p>
         <%= form.label :name, 'Nome' %>
         <%= form.text_field :name %>

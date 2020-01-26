@@ -7,7 +7,8 @@ describe 'Car Management' do
       car_category = CarCategory.create!(name: 'A', daily_rate: 36.5,
                                          car_insurance: 32.90,
                                          third_party_insurance: 30.90)
-      car_model = CarModel.create!(manufacturer: manufacturer,
+      car_model = CarModel.create!(name: 'Onix hatch', year: '2019', motorization: '1.4',
+                                   fuel_type: 'Flex', manufacturer: manufacturer,
                                    car_category: car_category)
       car = Car.create!(car_model: car_model, license_plate: 'ABC1234',
                         color: 'Branco', mileage: 100.99)
@@ -35,7 +36,8 @@ describe 'Car Management' do
       car_category = CarCategory.create!(name: 'A', daily_rate: 36.5,
                                          car_insurance: 32.90,
                                          third_party_insurance: 30.90)
-      car_model = CarModel.create!(manufacturer: manufacturer,
+      car_model = CarModel.create!(name: 'Onix hatch', year: '2019', motorization: '1.4',
+                                   fuel_type: 'Flex', manufacturer: manufacturer,
                                    car_category: car_category)
       car = Car.create!(car_model: car_model, license_plate: 'ABC1234',
                         color: 'Branco', mileage: 100.99)
@@ -68,7 +70,8 @@ describe 'Car Management' do
       car_category = CarCategory.create!(name: 'A', daily_rate: 36.5,
                                          car_insurance: 32.90,
                                          third_party_insurance: 30.90)
-      car_model = CarModel.create!(manufacturer: manufacturer,
+      car_model = CarModel.create!(name: 'Onix hatch', year: '2019', motorization: '1.4',
+                                   fuel_type: 'Flex', manufacturer: manufacturer,
                                    car_category: car_category)
 
       post api_v1_cars_path, params: {license_plate: 'DBZ9090', color: 'Vermelho',
@@ -95,7 +98,8 @@ describe 'Car Management' do
       car_category = CarCategory.create!(name: 'A', daily_rate: 36.5,
                                          car_insurance: 32.90,
                                          third_party_insurance: 30.90)
-      car_model = CarModel.create!(manufacturer: manufacturer,
+      car_model = CarModel.create!(name: 'Onix hatch', year: '2019', motorization: '1.4',
+                                   fuel_type: 'Flex', manufacturer: manufacturer,
                                    car_category: car_category)
       car = Car.create!(car_model: car_model, license_plate: 'ABC1234',
                         color: 'Branco', mileage: 100.99)
@@ -117,7 +121,8 @@ describe 'Car Management' do
       car_category = CarCategory.create!(name: 'A', daily_rate: 36.5,
                                          car_insurance: 32.90,
                                          third_party_insurance: 30.90)
-      car_model = CarModel.create!(manufacturer: manufacturer,
+      car_model = CarModel.create!(name: 'Onix hatch', year: '2019', motorization: '1.4',
+                                   fuel_type: 'Flex', manufacturer: manufacturer,
                                    car_category: car_category)
       car = Car.create!(car_model: car_model, license_plate: 'ABC1234',
                         color: 'Branco', mileage: 100.99)
@@ -135,7 +140,8 @@ describe 'Car Management' do
       car_category = CarCategory.create!(name: 'A', daily_rate: 36.5,
                                          car_insurance: 32.90,
                                          third_party_insurance: 30.90)
-      car_model = CarModel.create!(manufacturer: manufacturer,
+      car_model = CarModel.create!(name: 'Onix hatch', year: '2019', motorization: '1.4',
+                                   fuel_type: 'Flex', manufacturer: manufacturer,
                                    car_category: car_category)
       car = Car.create!(car_model: car_model, license_plate: 'ABC1234',
                         color: 'Branco', mileage: 100.99, status: 5)
