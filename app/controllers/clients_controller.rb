@@ -20,6 +20,14 @@ class ClientsController < ApplicationController
     render :new
   end
 
+  def destroy
+    @client = Client.find(params[:id])
+
+    return redirect_to clients_path,
+      notice: 'Cliente excluído com sucesso' if @client.destroy
+
+    redirect_to @client
+  end
   private
 
   def client_params
