@@ -1,0 +1,29 @@
+<%= form_for @subsidiary do |form| %>
+
+<% if @subsidiary.errors.any? %>
+  <% @subsidiary.errors.full_messages.each do |msg| %>
+    <div class="alert alert-danger" role="alert">
+      <%= msg %>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="form-group">
+  <%= form.label :name, 'Nome' %>
+  <%= form.text_field :name, class:'form-control' %>
+  <small id="name" class="form-text text-muted">*campo obrigatório</small>
+</div>
+
+<div class="form-group">
+  <%= form.label :cnpj, 'CNPJ' %>
+  <%= form.text_field :cnpj, class:'form-control' %>
+  <small id="name" class="form-text text-muted">*campo obrigatório, formato 00.000.000/0000-00</small>
+</div>
+
+<div class="form-group">
+  <%= form.label :address, 'Endereço' %>
+  <%= form.text_field :address, class:'form-control' %>
+  <small id="name" class="form-text text-muted">*campo obrigatório</small>
+</div>
+<%= form.submit 'Enviar', class: 'btn btn-primary' %>
+<% end %>
