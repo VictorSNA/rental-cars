@@ -1,18 +1,2 @@
 <h1>Cadastrar fabricante</h1>
-<%= form_for @manufacturer do |form| %>
-
-<% if @manufacturer.errors.any? %>
-  <% @manufacturer.errors.full_messages.each do |msg| %>
-    <div class="alert alert-danger" role="alert">
-      <%= msg %>
-    </div>
-  <% end %>
-<% end %>
-
-<div class="form-group">
-  <%= form.label :name, 'Nome' %>
-  <%= form.text_field :name, class:'form-control' %>
-  <small id="name" class="form-text text-muted">*campo obrigatório</small>
-</div>
-<%= form.submit 'Enviar', class: 'btn btn-primary' %>
-<% end %>
+<%= render partial: 'form', locals: { manufacturer: @manufacturer } %>

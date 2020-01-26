@@ -1,19 +1,2 @@
 <h1>Editar fornecedor:</h1>
-
-<% if @manufacturer.errors.any? %>
-  <% @manufacturer.errors.full_messages.each do |msg| %>
-    <div class="alert alert-danger" role="alert">
-      <%= msg %>
-    </div>
-  <% end %>
-<% end %>
-
-<%= form_with model: @manufacturer, local: true do |form| %>
-    <p><%= form.label :name, 'Nome' %>
-    <%= form.text_field :name %>
-    </p>
-
-    <p>
-    <%= form.submit 'Enviar' %>
-    </p>
-<% end %>
+<%= render partial: 'form', locals: { manufacturer: @manufacturer } %>
