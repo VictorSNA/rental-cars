@@ -4,10 +4,13 @@ feature 'Admin register car' do
   scenario 'successfully' do
     user = User.create!(email: 'teste@teste.com', password: '123456')
     manufacturer = Manufacturer.create!(name: 'Renault')
-    car_category = CarCategory.create!(name: 'AM', daily_rate: 46.54, car_insurance: 28,
+    car_category = CarCategory.create!(name: 'AM', daily_rate: 46.54,
+                                       car_insurance: 28,
                                        third_party_insurance: 10)
-    car_model = CarModel.create!(name: 'Kwid', year: '2020', manufacturer: manufacturer,
-                                 motorization: '1.0', car_category: car_category,
+    car_model = CarModel.create!(name: 'Kwid', year: '2020',
+                                 manufacturer: manufacturer,
+                                 motorization: '1.0', 
+                                 car_category: car_category,
                                  fuel_type: 'Flex')
     login_as(user, scope: :user)
     visit root_path
@@ -30,7 +33,8 @@ feature 'Admin register car' do
   scenario 'and all fields must be filled' do
     user = User.create!(email: 'teste@teste.com', password: '123456')
     manufacturer = Manufacturer.create!(name: 'Renault')
-    car_category = CarCategory.create!(name: 'AM', daily_rate: 46.54, car_insurance: 28,
+    car_category = CarCategory.create!(name: 'AM', daily_rate: 46.54,
+                                       car_insurance: 28,
                                        third_party_insurance: 10)
     login_as(user, scope: :user)
 
@@ -47,10 +51,13 @@ feature 'Admin register car' do
   scenario 'and license plate must be unique' do
     user = User.create!(email: 'teste@teste.com', password: '123456')
     manufacturer = Manufacturer.create!(name: 'Renault')
-    car_category = CarCategory.create!(name: 'AM', daily_rate: 46.54, car_insurance: 28,
+    car_category = CarCategory.create!(name: 'AM', daily_rate: 46.54,
+                                       car_insurance: 28,
                                        third_party_insurance: 10)
-    car_model = CarModel.create!(name: 'Kwid', year: '2020', manufacturer: manufacturer,
-                                 motorization: '1.0', car_category: car_category,
+    car_model = CarModel.create!(name: 'Kwid', year: '2020',
+                                 manufacturer: manufacturer,
+                                 motorization: '1.0',
+                                 car_category: car_category,
                                  fuel_type: 'Flex')
     Car.create!(license_plate: 'DEF5678', color: 'Azul', car_model: car_model,
                 mileage: 10000, status: 0)
@@ -70,10 +77,13 @@ feature 'Admin register car' do
   scenario 'and mileage must be greater or equal to zero' do
     user = User.create!(email: 'teste@teste.com', password: '123456')
     manufacturer = Manufacturer.create!(name: 'Renault')
-    car_category = CarCategory.create!(name: 'AM', daily_rate: 46.54, car_insurance: 28,
+    car_category = CarCategory.create!(name: 'AM', daily_rate: 46.54,
+                                       car_insurance: 28,
                                        third_party_insurance: 10)
-    car_model = CarModel.create!(name: 'Kwid', year: '2020', manufacturer: manufacturer,
-                                 motorization: '1.0', car_category: car_category,
+    car_model = CarModel.create!(name: 'Kwid', year: '2020',
+                                 manufacturer: manufacturer,
+                                 motorization: '1.0',
+                                 car_category: car_category,
                                  fuel_type: 'Flex')
     
     login_as(user, scope: :user)
