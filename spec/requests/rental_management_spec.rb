@@ -16,15 +16,15 @@ describe 'Rental Management' do
                                    car_category: car_category,
                                    fuel_type: 'Flex')
       Car.create!(license_plate: 'ABC1234', color: 'Branco',
-                  car_model: car_model, mileage: 10000, status: 0)
+                  car_model: car_model, mileage: 10_000, status: 0)
       post api_v1_rentals_path, params: {
-                                        start_date: Date.current, 
-                                        end_date: 1.day.from_now,
-                                        client_id: client.id,
-                                        car_category_id: car_category.id,
-                                        user_id: user.id
-                                        }
-      
+        start_date: Date.current,
+        end_date: 1.day.from_now,
+        client_id: client.id,
+        car_category_id: car_category.id,
+        user_id: user.id
+      }
+
       expect(response).to have_http_status(:ok)
     end
 
@@ -36,20 +36,20 @@ describe 'Rental Management' do
       car_category = CarCategory.create!(name: 'AM', daily_rate: 46.54,
                                          car_insurance: 28,
                                          third_party_insurance: 10)
-      car_model = CarModel.create!(name: 'Kwid', year: '2020', 
+      car_model = CarModel.create!(name: 'Kwid', year: '2020',
                                    manufacturer: manufacturer,
                                    motorization: '1.0',
                                    car_category: car_category,
                                    fuel_type: 'Flex')
-      Car.create!(license_plate: 'ABC1234', color: 'Branco', 
-                  car_model: car_model, mileage: 10000, status: 5)
+      Car.create!(license_plate: 'ABC1234', color: 'Branco',
+                  car_model: car_model, mileage: 10_000, status: 5)
       post api_v1_rentals_path, params: {
-                                          start_date: Date.current, 
-                                          end_date: 1.day.from_now,
-                                          client_id: client.id, 
-                                          car_category_id: car_category.id,
-                                          user_id: user.id
-                                        }
+        start_date: Date.current,
+        end_date: 1.day.from_now,
+        client_id: client.id,
+        car_category_id: car_category.id,
+        user_id: user.id
+      }
 
       expect(response).to have_http_status 412
     end

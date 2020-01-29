@@ -7,12 +7,14 @@ describe 'Car Management' do
       car_category = CarCategory.create!(name: 'A', daily_rate: 36.5,
                                          car_insurance: 32.90,
                                          third_party_insurance: 30.90)
-      car_model = CarModel.create!(name: 'Onix hatch', year: '2019', motorization: '1.4',
-                                   fuel_type: 'Flex', manufacturer: manufacturer,
+      car_model = CarModel.create!(name: 'Onix hatch', year: '2019',
+                                   motorization: '1.4',
+                                   fuel_type: 'Flex',
+                                   manufacturer: manufacturer,
                                    car_category: car_category)
       car = Car.create!(car_model: car_model, license_plate: 'ABC1234',
                         color: 'Branco', mileage: 100.99)
-      
+
       get api_v1_car_path(car)
       json = JSON.parse(response.body, symbolize_names: true)
 
@@ -25,7 +27,7 @@ describe 'Car Management' do
 
     it 'must not return cars that not exits' do
       get api_v1_car_path(999)
-      
+
       expect(response).to have_http_status(:not_found)
       expect(response.body).to include "Couldn't find Car with 'id'=999"
     end
@@ -36,14 +38,16 @@ describe 'Car Management' do
       car_category = CarCategory.create!(name: 'A', daily_rate: 36.5,
                                          car_insurance: 32.90,
                                          third_party_insurance: 30.90)
-      car_model = CarModel.create!(name: 'Onix hatch', year: '2019', motorization: '1.4',
-                                   fuel_type: 'Flex', manufacturer: manufacturer,
+      car_model = CarModel.create!(name: 'Onix hatch', year: '2019',
+                                   motorization: '1.4',
+                                   fuel_type: 'Flex',
+                                   manufacturer: manufacturer,
                                    car_category: car_category)
       car = Car.create!(car_model: car_model, license_plate: 'ABC1234',
                         color: 'Branco', mileage: 100.99)
       other_car = Car.create!(car_model: car_model, license_plate: 'DEF5678',
-                        color: 'Prata', mileage: 50.99)
-      
+                              color: 'Prata', mileage: 50.99)
+
       get api_v1_cars_path
 
       json = JSON.parse(response.body, symbolize_names: true)
@@ -70,13 +74,19 @@ describe 'Car Management' do
       car_category = CarCategory.create!(name: 'A', daily_rate: 36.5,
                                          car_insurance: 32.90,
                                          third_party_insurance: 30.90)
-      car_model = CarModel.create!(name: 'Onix hatch', year: '2019', motorization: '1.4',
-                                   fuel_type: 'Flex', manufacturer: manufacturer,
+      car_model = CarModel.create!(name: 'Onix hatch', year: '2019',
+                                   motorization: '1.4',
+                                   fuel_type: 'Flex',
+                                   manufacturer: manufacturer,
                                    car_category: car_category)
 
-      post api_v1_cars_path, params: {license_plate: 'DBZ9090', color: 'Vermelho',
-                                   mileage: 70.90, car_model_id: car_model.id}
-      
+      post api_v1_cars_path, params: {
+        license_plate: 'DBZ9090',
+        color: 'Vermelho',
+        mileage: 70.90,
+        car_model_id: car_model.id
+      }
+
       json = JSON.parse(response.body, symbolize_names: true)
 
       expect(response).to have_http_status(:ok)
@@ -86,7 +96,7 @@ describe 'Car Management' do
       expect(json[:car_model_id]).to eq car_model.id
     end
     it 'if records not invalid' do
-      post api_v1_cars_path, params: {banana: 'DBZ9090'}
+      post api_v1_cars_path, params: { banana: 'DBZ9090' }
 
       expect(response).to have_http_status(:precondition_failed)
     end
@@ -98,14 +108,20 @@ describe 'Car Management' do
       car_category = CarCategory.create!(name: 'A', daily_rate: 36.5,
                                          car_insurance: 32.90,
                                          third_party_insurance: 30.90)
-      car_model = CarModel.create!(name: 'Onix hatch', year: '2019', motorization: '1.4',
-                                   fuel_type: 'Flex', manufacturer: manufacturer,
+      car_model = CarModel.create!(name: 'Onix hatch', year: '2019',
+                                   motorization: '1.4',
+                                   fuel_type: 'Flex',
+                                   manufacturer: manufacturer,
                                    car_category: car_category)
       car = Car.create!(car_model: car_model, license_plate: 'ABC1234',
                         color: 'Branco', mileage: 100.99)
-      patch api_v1_car_path(car), params: {license_plate: 'DBZ9090', color: 'Vermelho',
-                                   mileage: 70.90, car_model_id: car_model.id}
-      
+      patch api_v1_car_path(car), params: {
+        license_plate: 'DBZ9090',
+        color: 'Vermelho',
+        mileage: 70.90,
+        car_model_id: car_model.id
+      }
+
       json = JSON.parse(response.body, symbolize_names: true)
 
       expect(response).to have_http_status(:ok)
@@ -121,13 +137,15 @@ describe 'Car Management' do
       car_category = CarCategory.create!(name: 'A', daily_rate: 36.5,
                                          car_insurance: 32.90,
                                          third_party_insurance: 30.90)
-      car_model = CarModel.create!(name: 'Onix hatch', year: '2019', motorization: '1.4',
-                                   fuel_type: 'Flex', manufacturer: manufacturer,
+      car_model = CarModel.create!(name: 'Onix hatch', year: '2019',
+                                   motorization: '1.4',
+                                   fuel_type: 'Flex',
+                                   manufacturer: manufacturer,
                                    car_category: car_category)
       car = Car.create!(car_model: car_model, license_plate: 'ABC1234',
                         color: 'Branco', mileage: 100.99)
-    
-      patch api_v1_car_path(car), params: {status: 'unavaliable'}
+
+      patch api_v1_car_path(car), params: { status: 'unavaliable' }
 
       json = JSON.parse(response.body, symbolize_names: true)
 
@@ -140,13 +158,15 @@ describe 'Car Management' do
       car_category = CarCategory.create!(name: 'A', daily_rate: 36.5,
                                          car_insurance: 32.90,
                                          third_party_insurance: 30.90)
-      car_model = CarModel.create!(name: 'Onix hatch', year: '2019', motorization: '1.4',
-                                   fuel_type: 'Flex', manufacturer: manufacturer,
+      car_model = CarModel.create!(name: 'Onix hatch', year: '2019',
+                                   motorization: '1.4',
+                                   fuel_type: 'Flex',
+                                   manufacturer: manufacturer,
                                    car_category: car_category)
       car = Car.create!(car_model: car_model, license_plate: 'ABC1234',
                         color: 'Branco', mileage: 100.99, status: 5)
-    
-      patch api_v1_car_path(car), params: {status: 'avaliable'}
+
+      patch api_v1_car_path(car), params: { status: 'avaliable' }
 
       json = JSON.parse(response.body, symbolize_names: true)
 
