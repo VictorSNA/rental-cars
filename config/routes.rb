@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     namespace 'v1' do
       resources :cars, only: [:index, :show, :create, :update]
       resources :rentals, only: [:create]
+      resources :car_models, only: [:destroy]
     end
   end
 end

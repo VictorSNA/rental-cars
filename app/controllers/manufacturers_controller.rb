@@ -27,7 +27,6 @@ class ManufacturersController < ApplicationController
     return redirect_to manufacturers_path,
            notice: 'Fabricante excluído com sucesso' if @manufacturer.destroy
 
-    redirect_to :show
   end
 
   private

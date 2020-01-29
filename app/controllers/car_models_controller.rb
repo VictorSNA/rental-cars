@@ -42,7 +42,6 @@ class CarModelsController < ApplicationController
     def destroy
         return redirect_to car_models_path, notice: 'Modelo de carro excluído com sucesso' if @car_model.destroy
 
-        redirect_to @car_model
     end
     private
 
