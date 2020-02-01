@@ -95,6 +95,6 @@ feature 'Admin register car' do
     fill_in 'Quilometragem', with: -12.90
     click_on 'Enviar'
 
-    expect(page).to have_content('Mileage must be greater than or equal to 0')
+    expect(page).to have_content('Mileage deve ser maior ou igual a 0')
   end
 end

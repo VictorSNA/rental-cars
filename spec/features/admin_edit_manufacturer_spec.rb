@@ -32,7 +32,7 @@ feature 'Admin edit manufacturer' do
     fill_in 'Nome', with: 'Honda'
     click_on 'Enviar'
 
-    expect(page).to have_content('Fornecedor já cadastrado')
+    expect(page).to have_content('Nome já está em uso')
   end
 
   scenario 'and must be unique and case sensitive' do
@@ -49,7 +49,7 @@ feature 'Admin edit manufacturer' do
     fill_in 'Nome', with: 'honda'
     click_on 'Enviar'
 
-    expect(page).to have_content('Fornecedor já cadastrado')
+    expect(page).to have_content('Nome já está em uso')
   end
 
   scenario 'and fields must be filled' do
@@ -65,7 +65,7 @@ feature 'Admin edit manufacturer' do
     fill_in 'Nome', with: ''
     click_on 'Enviar'
 
-    expect(page).to have_content('Nome não pode ficar vazio')
+    expect(page).to have_content('Nome não pode ficar em branco')
   end
 
   scenario 'and must be authenticated to edit' do
@@ -83,6 +83,6 @@ feature 'Admin edit manufacturer' do
     fill_in 'Nome', with: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     click_on 'Enviar'
 
-    expect(page).to have_content('Name muito grande')
+    expect(page).to have_content('Nome é muito longo (máximo: 64 caracteres)')
   end
 end

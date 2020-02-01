@@ -34,10 +34,10 @@ feature 'Admin register Car Category' do
 
         click_on 'Enviar'
 
-        expect(page).to have_content('Nome não pode ficar vazio')
-        expect(page).to have_content('Diária não pode ficar vazio')
-        expect(page).to have_content('Seguro do automóvel não pode ficar vazio')
-        expect(page).to have_content('Seguro contra terceiros não pode ficar vazio')
+        expect(page).to have_content('Nome não pode ficar em branco')
+        expect(page).to have_content('Diária não pode ficar em branco')
+        expect(page).to have_content('Seguro do automóvel não pode ficar em branco')
+        expect(page).to have_content('Seguro contra terceiros não pode ficar em branco')
 
     end
 
@@ -55,7 +55,7 @@ feature 'Admin register Car Category' do
 
         click_on 'Enviar'
 
-        expect(page).to have_content('Categoria de carro já cadastrado')
+        expect(page).to have_content('Nome já está em uso')
 
     end
 
@@ -69,7 +69,7 @@ feature 'Admin register Car Category' do
         fill_in 'Nome', with: 'a' * 33
         click_on 'Enviar'
 
-        expect(page).to have_content('Name muito grande')
+        expect(page).to have_content('Nome é muito longo (máximo: 32 caracteres)')
 
     end
 
@@ -87,7 +87,7 @@ feature 'Admin register Car Category' do
 
         click_on 'Enviar'
 
-        expect(page).to have_content('Categoria de carro já cadastrado')
+        expect(page).to have_content('Nome já está em uso')
 
     end
 
@@ -106,9 +106,9 @@ feature 'Admin register Car Category' do
         fill_in 'Seguro contra terceiros', with: -1
         click_on 'Enviar'
 
-        expect(page).to have_content('Daily rate must be greater than 0')
-        expect(page).to have_content('Car insurance must be greater than 0')
-        expect(page).to have_content('Third party insurance must be greater than 0')
+        expect(page).to have_content('Diária deve ser maior que 0')
+        expect(page).to have_content('Seguro do automóvel deve ser maior que 0')
+        expect(page).to have_content('Seguro contra terceiros deve ser maior que 0')
     end
 
     scenario 'and daily rate must be lesser or equal than 1 million' do
@@ -120,7 +120,7 @@ feature 'Admin register Car Category' do
         fill_in 'Diária', with: 1000001
         click_on 'Enviar'
 
-        expect(page).to have_content('Daily rate must be less than or equal to 10000')
+        expect(page).to have_content('Diária deve ser menor ou igual a 1000000')
     end
 
     scenario 'and car insurance must be lesser or equal than 1 million' do
@@ -132,7 +132,7 @@ feature 'Admin register Car Category' do
         fill_in 'Seguro do automóvel', with: 1000001
         click_on 'Enviar'
 
-        expect(page).to have_content('Car insurance must be less than or equal to 10000')
+        expect(page).to have_content('Seguro do automóvel deve ser menor ou igual a 1000000')
     end
 
     scenario 'and third party insurance must be lesser or equal than 1 million' do
@@ -144,7 +144,7 @@ feature 'Admin register Car Category' do
         fill_in 'Seguro contra terceiros', with: 1000001
         click_on 'Enviar'
 
-        expect(page).to have_content('Third party insurance must be less than or equal to 10000')
+        expect(page).to have_content('Seguro contra terceiros deve ser menor ou igual a 100000')
     end
     scenario 'and must be authenticated to register' do
         visit new_car_category_path

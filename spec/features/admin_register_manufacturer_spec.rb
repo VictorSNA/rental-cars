@@ -27,7 +27,7 @@ feature 'Admin register manufacturer' do
     fill_in 'Nome', with: 'Fiat'
     click_on 'Enviar'
 
-    expect(page).to have_content('Fornecedor já cadastrado')
+    expect(page).to have_content('Nome já está em uso')
   end
 
   scenario 'and must be unique and case sensitive' do
@@ -41,7 +41,7 @@ feature 'Admin register manufacturer' do
     fill_in 'Nome', with: 'fiat'
     click_on 'Enviar'
     
-    expect(page).to have_content('Fornecedor já cadastrado')
+    expect(page).to have_content('Nome já está em uso')
   end
   scenario 'and fields must be filled' do
     user = User.create!(email: 'teste@teste.com', password: '123456')
@@ -52,7 +52,7 @@ feature 'Admin register manufacturer' do
 
     click_on 'Enviar'
 
-    expect(page).to have_content('Nome não pode ficar vazio')
+    expect(page).to have_content('Nome não pode ficar em branco')
   end
 
   scenario 'and must be authenticated to register' do
@@ -68,6 +68,6 @@ feature 'Admin register manufacturer' do
 
     fill_in 'Nome', with: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     click_on 'Enviar'
-    expect(page).to have_content('Name muito grande')
+    expect(page).to have_content('Nome é muito longo (máximo: 64 caracteres)')
   end
 end

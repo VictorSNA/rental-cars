@@ -1,0 +1,19 @@
+pt-BR:
+  activerecord:
+    models:
+      manufacturer:
+        one: Fabricante
+        other: Fabricantes
+      car_category:
+        one: Categoria de carro
+        other: Categorias de carro
+    attributes:
+      manufacturer:
+        name: Nome
+      car_category:
+        name: Nome
+        daily_rate: Diária
+        car_insurance: Seguro do automóvel
+        third_party_insurance: Seguro contra terceiros
+
+

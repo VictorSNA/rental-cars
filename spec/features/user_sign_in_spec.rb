@@ -13,7 +13,7 @@ feature 'User sign in' do
       click_on 'Entrar'
     end
 
-    expect(page).to have_content('Signed in successfully')
+    expect(page).to have_content('Login efetuado com sucesso')
     expect(page).to have_link('Sair')
     expect(page).not_to have_link('Entrar')
 
@@ -33,7 +33,7 @@ feature 'User sign in' do
     end
       click_on 'Sair'
 
-      expect(page).to have_content('Signed out successfully')
+      expect(page).to have_content('Logout efetuado com sucesso')
       expect(page).to have_link('Entrar')
       expect(page).not_to have_link('Sair')
       
