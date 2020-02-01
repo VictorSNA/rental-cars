@@ -51,59 +51,34 @@ describe Rental do
 
     describe '#car_statuses' do
       it 'should change car status to unavaliable' do
-        user = User.create!(email: 'teste@teste.com', password: '123456')
-        client = Client.create!(name: 'Fulano da Silva', cpf: '127.587.748-60',
-                                email: 'fulanodasilva@teste.com')
-        manufacturer = Manufacturer.create!(name: 'Renault')
-        car_category = CarCategory.create!(name: 'AM', daily_rate: 46.54,
-                                           car_insurance: 28,
-                                           third_party_insurance: 10)
-        car_model = CarModel.create!(name: 'Kwid', year: '2020',
-                                     manufacturer: manufacturer,
-                                     motorization: '1.0',
-                                     car_category: car_category,
-                                     fuel_type: 'Flex')
-        car = Car.create!(license_plate: 'ABC1234', color: 'Branco',
-                          car_model: car_model, mileage: 10_000)
-        rental = Rental.create!(code: '1212', start_date: Date.current,
-                                end_date: Date.current,
-                                client: client,
-                                car_category: car_category,
-                                user: user)
-        CarRental.create(car: car, rental: rental, daily_rate: 30,
-                         start_mileage: 20,
-                         car_insurance: 30,
-                         third_party_insurance: 300)
+        user = create(:user)
+        client = create(:client)
+        manufacturer = create(:manufacturer)
+        car_category = create(:car_category)
+        car_model = create(:car_model,
+                           manufacturer: manufacturer,
+                           car_category: car_category)
+        car = create(:car, car_model: car_model)
+        rental = create(:rental,
+                        client: client,
+                        car_category: car_category,
+                        user: user)
+        create(:car_rental, car: car, rental: rental)
 
         result = rental.car_statuses
 
         expect(result).to eq 'unavaliable'
       end
       it 'should change car status to avaliable' do
-        user = User.create!(email: 'teste@teste.com', password: '123456')
-        client = Client.create!(name: 'Fulano da Silva', cpf: '127.587.748-60',
-                                email: 'fulanodasilva@teste.com')
-        manufacturer = Manufacturer.create!(name: 'Renault')
-        car_category = CarCategory.create!(name: 'AM', daily_rate: 46.54,
-                                           car_insurance: 28,
-                                           third_party_insurance: 10)
-        car_model = CarModel.create!(name: 'Kwid', year: '2020',
-                                     manufacturer: manufacturer,
-                                     motorization: '1.0',
-                                     car_category: car_category,
-                                     fuel_type: 'Flex')
-        car = Car.create!(license_plate: 'ABC1234', color: 'Branco',
-                          car_model: car_model,
-                          mileage: 10_000)
-        rental = Rental.new(code: '1212', start_date: 2.days.ago,
-                            end_date: 1.day.ago,
-                            client: client, car_category: car_category,
-                            user: user)
+        car_category = create(:car_category)
+        car_model = create(:car_model, car_category: car_category)
+        car = create(:car, car_model: car_model, status: 0)
+        rental = build(:rental,
+                       start_date: 2.days.ago,
+                       end_date: 1.day.ago,
+                       car_category: car_category)
         rental.save(validate: false)
-        CarRental.create(car: car, rental: rental, daily_rate: 30,
-                         start_mileage: 20,
-                         car_insurance: 30,
-                         third_party_insurance: 300)
+        create(:car_rental, car: car, rental: rental)
 
         result = rental.car_statuses
 
@@ -111,38 +86,20 @@ describe Rental do
       end
 
       it 'should change car status to avaliable and then unavaliable' do
-        user = User.create!(email: 'teste@teste.com', password: '123456')
-        client = Client.create!(name: 'Fulano da Silva', cpf: '127.587.748-60',
-                                email: 'fulanodasilva@teste.com')
-        manufacturer = Manufacturer.create!(name: 'Renault')
-        car_category = CarCategory.create!(name: 'AM', daily_rate: 46.54,
-                                           car_insurance: 28,
-                                           third_party_insurance: 10)
-        car_model = CarModel.create!(name: 'Kwid', year: '2020',
-                                     manufacturer: manufacturer,
-                                     motorization: '1.0',
-                                     car_category: car_category,
-                                     fuel_type: 'Flex')
-        car = Car.create!(license_plate: 'ABC1234', color: 'Branco',
-                          car_model: car_model,
-                          mileage: 10_000)
-        rental = Rental.new(code: '1212', start_date: 2.days.ago,
-                            end_date: 1.day.ago,
-                            client: client, car_category: car_category,
-                            user: user)
+        car_category = create(:car_category)
+        car_model = create(:car_model, car_category: car_category)
+        car = create(:car, car_model: car_model)
+        rental = build(:rental,
+                       start_date: 2.days.ago,
+                       end_date: 1.day.ago,
+                       car_category: car_category)
         rental.save(validate: false)
-        CarRental.create(car: car, rental: rental, daily_rate: 30,
-                         start_mileage: 20,
-                         car_insurance: 30,
-                         third_party_insurance: 300)
-        newer_rental = Rental.new(code: '1212', start_date: Date.current,
-                                  end_date: Date.current,
-                                  client: client, car_category: car_category,
-                                  user: user)
-        CarRental.create(car: car, rental: newer_rental, daily_rate: 30,
-                         start_mileage: 20,
-                         car_insurance: 30,
-                         third_party_insurance: 300)
+        create(:car_rental, car: car, rental: rental)
+        newer_rental = build(:rental,
+                             start_date: Date.current,
+                             end_date: Date.current,
+                             car_category: car_category)
+        create(:car_rental, car: car, rental: newer_rental)
 
         result = newer_rental.car_statuses
 
@@ -150,30 +107,15 @@ describe Rental do
       end
 
       it 'should car status to be avaliable until start date' do
-        user = User.create!(email: 'teste@teste.com', password: '123456')
-        client = Client.create!(name: 'Fulano da Silva', cpf: '127.587.748-60',
-                                email: 'fulanodasilva@teste.com')
-        manufacturer = Manufacturer.create!(name: 'Renault')
-        car_category = CarCategory.create!(name: 'AM', daily_rate: 46.54,
-                                           car_insurance: 28,
-                                           third_party_insurance: 10)
-        car_model = CarModel.create!(name: 'Kwid', year: '2020',
-                                     manufacturer: manufacturer,
-                                     motorization: '1.0',
-                                     car_category: car_category,
-                                     fuel_type: 'Flex')
-        car = Car.create!(license_plate: 'ABC1234', color: 'Branco',
-                          car_model: car_model,
-                          mileage: 10_000)
-        rental = Rental.new(code: '1212', start_date: 1.day.from_now,
-                            end_date: 2.days.from_now,
-                            client: client, car_category: car_category,
-                            user: user)
+        car_category = create(:car_category)
+        car_model = create(:car_model, car_category: car_category)
+        car = create(:car, car_model: car_model, status: 0)
+        rental = build(:rental,
+                       start_date: 1.day.from_now,
+                       end_date: 2.days.from_now,
+                       car_category: car_category)
         rental.save(validate: false)
-        CarRental.create(car: car, rental: rental, daily_rate: 30,
-                         start_mileage: 20,
-                         car_insurance: 30,
-                         third_party_insurance: 300)
+        create(:car_rental, car: car, rental: rental)
 
         result = rental.car_statuses
 
