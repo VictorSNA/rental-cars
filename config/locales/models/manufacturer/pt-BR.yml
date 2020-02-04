@@ -1,0 +1,10 @@
+---
+pt-BR:
+  activerecord:
+    models:
+      manufacturer:
+        one: 'Fabricante'
+        other: 'Fabricantes'
+    attributes:
+      manufacturer:
+        name: 'Nome'
