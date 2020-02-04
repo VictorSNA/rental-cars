@@ -2,11 +2,10 @@ require 'rails_helper'
 
 feature 'User register client' do
   scenario 'successfully' do
-    user = User.create!(email: 'teste@teste.com', password: '123456')
+    user = create(:user)
 
     login_as(user, scope: :user)
     visit root_path
-
     click_on 'Clientes'
     click_on 'Registrar cliente'
     fill_in 'Nome', with: 'Victor'
@@ -26,58 +25,48 @@ feature 'User register client' do
   end
 
   scenario 'and fields must be present' do
-    user = User.create!(email: 'teste@teste.com', password: '123456')
+    user = create(:user)
 
     login_as(user, scope: :user)
     visit new_client_path
     click_on 'Enviar'
 
-    expect(page).to have_content('Name não pode ficar vazio')
-    expect(page).to have_content('Email não pode ficar vazio')
-    expect(page).to have_content('Cpf não pode ficar vazio')
+    expect(page).to have_content('Nome não pode ficar em branco')
+    expect(page).to have_content('Email não pode ficar em branco')
+    expect(page).to have_content('CPF não pode ficar em branco')
   end
 
   scenario 'and name must be less or equal to 64' do
-    user = User.create!(email: 'teste@teste.com', password: '123456')
+    user = create(:user)
 
     login_as(user, scope: :user)
     visit new_client_path
     fill_in 'Nome', with: 'a' * 65
     click_on 'Enviar'
 
-    expect(page).to have_content('Name muito grande')
+    expect(page).to have_content('Nome é muito longo (máximo: 64 caracteres)')
   end
 
   scenario 'and name must be less or equal to 128' do
-    user = User.create!(email: 'teste@teste.com', password: '123456')
+    user = create(:user)
 
     login_as(user, scope: :user)
     visit new_client_path
     fill_in 'Email', with: 'a' * 129
     click_on 'Enviar'
 
-    expect(page).to have_content('Email muito grande')
+    expect(page).to have_content('Email é muito longo (máximo: 128 caracteres)')
   end
 
-  scenario 'and CPF must be less than 14' do
-    user = User.create!(email: 'teste@teste.com', password: '123456')
-
-    login_as(user, scope: :user)
-    visit new_client_path
-    fill_in 'CPF', with: 'a' * 15
-    click_on 'Enviar'
-
-    expect(page).to have_content('Cpf inválido')
-  end
-
-  scenario 'and CPF must be equal than 14' do
-    user = User.create!(email: 'teste@teste.com', password: '123456')
+  scenario 'and CPF must be equal to 14' do
+    user = create(:user)
 
     login_as(user, scope: :user)
     visit new_client_path
     fill_in 'CPF', with: 'a' * 13
     click_on 'Enviar'
 
-    expect(page).to have_content('Cpf inválido')
+    expect(page).to have_content('CPF não possui o tamanho esperado '\
+                                 '(14 caracteres)')
   end
 end

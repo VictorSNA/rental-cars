@@ -1,9 +1,9 @@
 FactoryBot.define do
   sequence :code do |n|
-    "BKING#{n}"
+    "BKING#{(n).to_s.rjust(3, '0')}"
   end
 
-  factory :rental do |n|
+  factory :rental do
     code
     start_date { Date.current }
     end_date { 1.day.from_now }

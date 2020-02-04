@@ -2,9 +2,9 @@ require 'rails_helper'
 
 feature 'Admin edit manufacturer' do
   scenario 'successfully' do
-    user = User.create!(email: 'teste@teste.com', password: '123456')
-    Manufacturer.create!(name: 'Fiat')
-    
+    user = create(:user)
+    create(:manufacturer, name: 'Fiat')
+
     login_as(user, scope: :user)
 
     visit root_path
@@ -19,16 +19,13 @@ feature 'Admin edit manufacturer' do
   end
 
   scenario 'and must be unique' do
-    user = User.create!(email: 'teste@teste.com', password: '123456')
+    user = create(:user)
     login_as(user, scope: :user)
 
-    Manufacturer.create!(name: 'Fiat')
-    Manufacturer.create!(name: 'Honda')
+    manufacturer = create(:manufacturer, name: 'Fiat')
+    create(:manufacturer, name: 'Honda')
 
-    visit root_path
-    click_on 'Fabricantes'
-    click_on 'Fiat'
-    click_on 'Editar'
+    visit edit_manufacturer_path(manufacturer)
     fill_in 'Nome', with: 'Honda'
     click_on 'Enviar'
 
@@ -36,16 +33,13 @@ feature 'Admin edit manufacturer' do
   end
 
   scenario 'and must be unique and case sensitive' do
-    user = User.create!(email: 'teste@teste.com', password: '123456')
+    user = create(:user)
     login_as(user, scope: :user)
 
-    Manufacturer.create!(name: 'Fiat')
-    Manufacturer.create!(name: 'Honda')
+    manufacturer = create(:manufacturer, name: 'Fiat')
+    create(:manufacturer, name: 'Honda')
 
-    visit root_path
-    click_on 'Fabricantes'
-    click_on 'Fiat'
-    click_on 'Editar'
+    visit edit_manufacturer_path(manufacturer)
     fill_in 'Nome', with: 'honda'
     click_on 'Enviar'
 
@@ -53,15 +47,12 @@ feature 'Admin edit manufacturer' do
   end
 
   scenario 'and fields must be filled' do
-    user = User.create!(email: 'teste@teste.com', password: '123456')
-    Manufacturer.create!(name: 'Honda')
+    user = create(:user)
+    manufacturer = create(:manufacturer, name: 'Honda')
 
     login_as(user, scope: :user)
 
-    visit root_path
-    click_on 'Fabricantes'
-    click_on 'Honda'
-    click_on 'Editar'
+    visit edit_manufacturer_path(manufacturer)
     fill_in 'Nome', with: ''
     click_on 'Enviar'
 
@@ -69,18 +60,18 @@ feature 'Admin edit manufacturer' do
   end
 
   scenario 'and must be authenticated to edit' do
-    visit edit_manufacturer_path(00000)
+    visit edit_manufacturer_path(0)
 
     expect(current_path).to eq(new_user_session_path)
   end
 
   scenario 'and name length must be lesser than 64 characters' do
-    user = User.create!(email: 'teste@teste.com', password: '123456')
-    manufacturer =Manufacturer.create!(name: 'Fiat')
+    user = create(:user)
+    manufacturer = create(:manufacturer, name: 'Fiat')
 
     login_as(user, scope: :user)
     visit edit_manufacturer_path(manufacturer)
-    fill_in 'Nome', with: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+    fill_in 'Nome', with: 'a' * 65
     click_on 'Enviar'
 
     expect(page).to have_content('Nome é muito longo (máximo: 64 caracteres)')

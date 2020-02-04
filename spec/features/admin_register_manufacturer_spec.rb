@@ -2,9 +2,9 @@ require 'rails_helper'
 
 feature 'Admin register manufacturer' do
   scenario 'successfully' do
-    user = User.create!(email: 'teste@teste.com', password: '123456')
-    login_as(user, scope: :user)
+    user = create(:user)
 
+    login_as(user, scope: :user)
     visit root_path
     click_on 'Fabricantes'
     click_on 'Registrar fabricante'
@@ -17,8 +17,8 @@ feature 'Admin register manufacturer' do
   end
 
   scenario 'and must be unique' do
-    user = User.create!(email: 'teste@teste.com', password: '123456')
-    Manufacturer.create(name: 'Fiat')
+    user = create(:user)
+    create(:manufacturer, name: 'Fiat')
 
     login_as(user, scope: :user)
     visit root_path
@@ -31,8 +31,8 @@ feature 'Admin register manufacturer' do
   end
 
   scenario 'and must be unique and case sensitive' do
-    user = User.create!(email: 'teste@teste.com', password: '123456')
-    Manufacturer.create(name: 'Fiat')
+    user = create(:user)
+    create(:manufacturer, name: 'Fiat')
 
     login_as(user, scope: :user)
     visit root_path
@@ -40,11 +40,13 @@ feature 'Admin register manufacturer' do
     click_on 'Registrar fabricante'
     fill_in 'Nome', with: 'fiat'
     click_on 'Enviar'
-    
+
     expect(page).to have_content('Nome já está em uso')
   end
+
   scenario 'and fields must be filled' do
-    user = User.create!(email: 'teste@teste.com', password: '123456')
+    user = create(:user)
+
     login_as(user, scope: :user)
     visit root_path
     click_on 'Fabricantes'
@@ -62,12 +64,14 @@ feature 'Admin register manufacturer' do
   end
 
   scenario 'and name length must be lesser than 64 characters' do
-    user = User.create!(email: 'teste@teste.com', password: '123456')
+    user = create(:user)
+
     login_as(user, scope: :user)
     visit new_manufacturer_path
 
-    fill_in 'Nome', with: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+    fill_in 'Nome', with: 'a' * 65
     click_on 'Enviar'
+
     expect(page).to have_content('Nome é muito longo (máximo: 64 caracteres)')
   end
 end

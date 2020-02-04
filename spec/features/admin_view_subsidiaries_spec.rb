@@ -1,49 +1,48 @@
 require 'rails_helper'
 
 feature 'Admin view subsidiaries' do
-    scenario 'successufully' do
-        user = User.create!(email: 'teste@teste.com', password: '123456')
-        Subsidiary.create!(name: 'Saúde', cnpj: '00.000.000/0000-00', address: 'Avenue Jabaquara, 1469')
-        
-        login_as(user, scope: :user)
-        visit root_path
-        click_on 'Filiais'
-        click_on 'Saúde'
+  scenario 'successufully' do
+    user = create(:user)
+    create(:subsidiary,
+           name: 'Saúde', cnpj: '00.000.000/0000-00',
+           address: 'Avenue Jabaquara, 1469')
 
-        expect(page).to have_content('Saúde')
-        expect(page).to have_content('00.000.000/0000-0')
-        expect(page).to have_content('Avenue Jabaquara, 1469')
-    end
+    login_as(user, scope: :user)
+    visit root_path
+    click_on 'Filiais'
+    click_on 'Saúde'
 
-    scenario ' and return to home page' do
-        user = User.create!(email: 'teste@teste.com', password: '123456')
-        Subsidiary.create!(name: 'Saúde', cnpj: '00.000.000/0000-00', address: 'Avenue Jabaquara, 1469')
+    expect(page).to have_content('Saúde')
+    expect(page).to have_content('00.000.000/0000-0')
+    expect(page).to have_content('Avenue Jabaquara, 1469')
+  end
 
-        login_as(user, scope: :user)
-        visit root_path
-        click_on 'Filiais'
-        click_on 'Saúde'
-        click_on 'Home'
-        
-        expect(current_path).to eq(root_path)
+  scenario ' and return to home page' do
+    user = create(:user)
+    subsidiary = create(:subsidiary)
 
-    end
+    login_as(user, scope: :user)
+    visit subsidiary_path(subsidiary)
+    click_on 'Home'
 
-    scenario 'and must be authenticated via button' do
-        visit root_path
-        
-        expect(page).not_to have_link('Filiais')
-    end
+    expect(current_path).to eq(root_path)
+  end
 
-    scenario 'and must be authenticated via route' do
-        visit subsidiaries_path
+  scenario 'and must be authenticated via button' do
+    visit root_path
 
-        expect(current_path).to eq(new_user_session_path)
-    end
+    expect(page).not_to have_link('Filiais')
+  end
 
-    scenario 'and must be authenticated to view details' do
-        visit subsidiary_path(000000)
+  scenario 'and must be authenticated via route' do
+    visit subsidiaries_path
 
-        expect(current_path).to eq(new_user_session_path)
-    end
+    expect(current_path).to eq(new_user_session_path)
+  end
+
+  scenario 'and must be authenticated to view details' do
+    visit subsidiary_path(0)
+
+    expect(current_path).to eq(new_user_session_path)
+  end
 end

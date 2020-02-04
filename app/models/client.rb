@@ -1,10 +1,11 @@
 class Client < ApplicationRecord
   has_many :rentals
 
-  validates :name, :email, :cpf, presence: {message: 'não pode ficar vazio'}
-  validates :name, length: {maximum: 64, message: 'muito grande'}
-  validates :email, length: {maximum: 128, message: 'muito grande'}
-  validates :cpf, length: {is: 14, message: 'inválido'}
+  validates :name, :email, :cpf, presence: true
+  validates :name, length: { maximum: 64 }
+  validates :email, length: { maximum: 128 }
+  validates :cpf, length: { is: 14 }
+
   def identification
     "#{cpf} - #{name}"
   end

@@ -4,9 +4,9 @@ class CarModel < ApplicationRecord
   has_many :cars
 
   validates :name, :year, :manufacturer_id, :motorization,
-            :car_category_id, :fuel_type, presence: {message: 'não pode ficar vazio'}
-  validates :name, length: {maximum: 64, message: 'muito grande'}
-  validates :year, length: {maximum: 4, message: 'muito grande'}
-  validates :motorization, length: {maximum: 3, message: 'deve ser até 3 caracteres'}
-  validates :fuel_type, length: {maximum: 64, message: 'deve ser até 64 caracteres'}
+            :car_category_id, :fuel_type, presence: true
+  validates :name, length: { maximum: 64 }
+  validates :year, length: { maximum: 4 }
+  validates :motorization, length: { maximum: 3 }
+  validates :fuel_type, length: { maximum: 64 }
 end

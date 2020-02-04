@@ -2,11 +2,10 @@ require 'rails_helper'
 
 feature 'Admin delete client' do
   scenario 'sucessfully' do
-    user = User.create!(email: 'teste@teste.com', password: '123456')
-    client = Client.create!(name: 'Fulano da Silva', cpf: '127.587.748-60',
-                            email: 'fulanodasilva@teste.com')
-    login_as(user, scope: :user)
+    user = create(:user)
+    create(:client, name: 'Fulano da Silva')
 
+    login_as(user, scope: :user)
     visit clients_path
     click_on 'Fulano da Silva'
     click_on 'Editar'
