@@ -17,7 +17,7 @@ describe 'Car Management' do
 
       get api_v1_car_path(car)
       json = JSON.parse(response.body, symbolize_names: true)
-
+      p response.header
       expect(response).to have_http_status(:ok)
       expect(json[:car_model_id]).to eq car.car_model.id
       expect(json[:license_plate]).to eq car.license_plate
