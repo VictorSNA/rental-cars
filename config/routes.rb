@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     get 'cancel', on: :member
     post 'cancel', on: :member, to: 'rentals#confirm_cancel'
   end
+  resources :accessories, only: [:index, :show, :new, :create]
   resources :cars, only: [:index, :new, :create, :show]
 
   namespace 'api' do

@@ -3,6 +3,7 @@ active
 <% end %>
 <h1>Locações</h1>
 <%= link_to 'Agendar locação', new_rental_path %>
+<%= link_to 'Acessórios', accessories_path %>
 <section>
   <%= form_tag search_rentals_path, method: 'get' do %>
     <%= label_tag :q, 'Pesquisar' %>

@@ -1,0 +1,12 @@
+<%= form_with model: @accessory, local: true do |form| %>
+  <%= form.label :name %>
+  <%= form.text_field :name %>
+
+  <%= form.label :description %>
+  <%= form.text_field :description %>
+
+  <%= form.label :daily_rate %>
+  <%= form.text_field :daily_rate %>
+
+  <%= form.submit 'Enviar' %>
+<% end %>
