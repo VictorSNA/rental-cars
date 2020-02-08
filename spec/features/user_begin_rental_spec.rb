@@ -42,6 +42,7 @@ feature 'User begin rental' do
     car = create(:car,
                  license_plate: 'ABC1234', color: 'Branco',
                  car_model: car_model, status: 0)
+    create(:car, car_model: car_model)
     create(:rental, code: 'VKN0001', car_category: car_category, user: user)
 
     login_as(user, scope: :user)
@@ -62,6 +63,35 @@ feature 'User begin rental' do
     expect(page).to have_content('R$ 28')
     expect(page).to have_content('R$ 10')
     expect(page).to have_content('R$ 84.54')
+  end
+
+  scenario 'and rental status must change' do
+    user = create(:user)
+    manufacturer = create(:manufacturer, name: 'Renault')
+    car_category = create(:car_category, name: 'AM')
+    car_model = create(:car_model,
+                       name: 'Kwid', manufacturer: manufacturer,
+                       car_category: car_category)
+    car = create(:car,
+                 license_plate: 'ABC1234', color: 'Branco',
+                 car_model: car_model, status: 0)
+    create(:car, car_model: car_model)
+    rental = create(:rental, code: 'VKN0001', car_category: car_category,
+                             user: user)
+
+    login_as(user, scope: :user)
+    visit root_path
+    click_on 'Locações'
+    fill_in 'Pesquisar', with: 'VKN0001'
+    click_on 'Buscar'
+    click_on 'VKN0001'
+    within "#div-#{car.id}" do
+      click_on 'Iniciar'
+    end
+
+    expect(rental.reload.status).to eq 'active'
+    expect(page).to have_content('Locação - VKN0001')
+    expect(page).to have_content('Renault Kwid - ABC1234 - Branco')
   end
 
   scenario 'and unavaliable cars must be blocked via button' do
@@ -92,5 +122,30 @@ feature 'User begin rental' do
 
     expect(page).to have_content('ABC1234')
     expect(page).not_to have_content('DEF5678')
+  end
+
+  scenario 'and scheduled rentals must not view avaliable cars' do
+    user = create(:user)
+    manufacturer = create(:manufacturer, name: 'Renault')
+    car_category = create(:car_category, name: 'AM')
+    car_model = create(:car_model,
+                       name: 'Kwid', manufacturer: manufacturer,
+                       car_category: car_category)
+    car = create(:car,
+                 license_plate: 'ABC1234', color: 'Branco',
+                 car_model: car_model, status: 0)
+    create(:car, license_plate: 'DEF123', color: 'Cinza',
+                 car_model: car_model, status: 0)
+    rental = create(:rental, code: 'VKN0001', car_category: car_category,
+                             user: user, status: :active)
+    create(:car_rental, rental: rental, car: car)
+
+    login_as(user, scope: :user)
+    visit root_path
+    click_on 'Locações'
+    fill_in 'Pesquisar', with: 'VKN0001'
+    click_on 'Buscar'
+
+    expect(page).not_to have_link('VKN0001')
   end
 end

@@ -1,0 +1,5 @@
+<%= form_tag cancel_rental_path, method: 'post' do %>
+  <p> <%= label_tag :description, 'Descrição'%>
+  <%= text_field_tag :description %></p>
+  <p><%= submit_tag 'Enviar' %></p>
+<% end %>

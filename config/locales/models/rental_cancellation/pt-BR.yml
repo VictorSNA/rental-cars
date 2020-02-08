@@ -1,0 +1,12 @@
+---
+pt-BR:
+  activerecord:
+    models:
+      rental_cancellation:
+        one: 'Cancelamento de locação'
+        other: 'Cancelamentos de locação'
+    attributes:
+      rental_cancellation:
+        description: 'Descrição'
+        date: 'Data'
+        rental: 'Locação'

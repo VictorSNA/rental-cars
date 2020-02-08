@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_23_001012) do
+ActiveRecord::Schema.define(version: 2020_02_08_111806) do
 
   create_table "car_categories", force: :cascade do |t|
     t.string "name"
@@ -72,6 +72,19 @@ ActiveRecord::Schema.define(version: 2020_01_23_001012) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "rental_cancellations", force: :cascade do |t|
+    t.integer "user_id"
+    t.date "date"
+    t.string "description"
+    t.integer "rental_id"
+    t.integer "car_rental_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["car_rental_id"], name: "index_rental_cancellations_on_car_rental_id"
+    t.index ["rental_id"], name: "index_rental_cancellations_on_rental_id"
+    t.index ["user_id"], name: "index_rental_cancellations_on_user_id"
+  end
+
   create_table "rentals", force: :cascade do |t|
     t.string "code"
     t.date "start_date"
@@ -81,6 +94,7 @@ ActiveRecord::Schema.define(version: 2020_01_23_001012) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+    t.integer "status", default: 0
     t.index ["car_category_id"], name: "index_rentals_on_car_category_id"
     t.index ["client_id"], name: "index_rentals_on_client_id"
     t.index ["user_id"], name: "index_rentals_on_user_id"

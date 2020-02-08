@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     get 'search', on: :collection
     get 'begin', on: :member
     post 'begin', on: :member, to: 'rentals#confirm_begin'
+    get 'cancel', on: :member
+    post 'cancel', on: :member, to: 'rentals#confirm_cancel'
   end
   resources :cars, only: [:index, :new, :create, :show]
 

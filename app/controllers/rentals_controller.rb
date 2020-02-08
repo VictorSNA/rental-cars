@@ -1,6 +1,7 @@
 class RentalsController < ApplicationController
   before_action :authenticate_user!, only: [:index, :search, :new]
-  before_action :set_rental, only: [:show, :begin, :confirm_begin]
+  before_action :set_rental, only: [:show, :begin, :confirm_begin, :cancel,
+                                    :confirm_cancel]
   def index
   end
   def show
@@ -27,13 +28,37 @@ class RentalsController < ApplicationController
                .where(status: 0)
   end
   def confirm_begin
-    @car = Car.find(params[:id])
-    @car_rental = CarRental.create!(daily_rate: @car.car_model.car_category.daily_rate,
+    return redirect_to @rental, notice: 'Locação já iniciada' if @rental.active?
+
+    @car = Car.find(params[:car_id])
+    @rental.active!
+    @car_rental = CarRental.new(daily_rate: @car.car_model.car_category.daily_rate,
                       car_insurance: @car.car_model.car_category.car_insurance,
                       third_party_insurance: @car.car_model.car_category.third_party_insurance,
                       start_mileage: @car.mileage, rental: @rental, car: @car)
+    return @car.status_unavaliable! if @car_rental.save
+
+    @rental.in_progress!
   end
-  
+
+  def cancel
+  end
+
+  def confirm_cancel
+    return redirect_to @rental,
+           alert: @rental.errors.full_messages.each{|msg| msg}\
+           unless @rental.verify_cancelement(params[:description])
+
+    @car = Car.find(params[:id])
+    @car_rental = CarRental.find(params[:id])
+    @rental.canceled!
+    @car.status_avaliable!
+    @rental_cancellation = RentalCancellation.new(user: current_user,
+                           rental: @rental, description: params[:description],
+                           car_rental: @car_rental, date: Date.current)
+    return redirect_to rentals_path,
+           notice: 'Locação cancelada com sucesso' if @rental_cancellation.save!
+  end
   private
 
   def rental_params

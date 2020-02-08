@@ -7,10 +7,11 @@ class CarCategory < ApplicationRecord
     validates :daily_rate, presence: true,
                         numericality: { greater_than: 0, less_than_or_equal_to: 1000000 }
     validates :car_insurance, presence: true,
-                        numericality: { greater_than: 0, less_than_or_equal_to: 1000000 }
-    validates :third_party_insurance,
-                        presence: true,
-                        numericality: { greater_than: 0, less_than_or_equal_to: 1000000 }
-
-    
+                              numericality:
+                              { greater_than: 0,
+                                less_than_or_equal_to: 1000000 }
+    validates :third_party_insurance, presence: true,
+                                      numericality:
+                                      { greater_than: 0,
+                                        less_than_or_equal_to: 1_000_000 }
 end

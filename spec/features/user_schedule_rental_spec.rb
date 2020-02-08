@@ -71,6 +71,7 @@ feature 'User schedule rental' do
   end
 
   scenario 'and start cannot be in greater than end date' do
+    create(:car_category)
     user = create(:user)
 
     login_as(user, user: :scope)
@@ -79,7 +80,7 @@ feature 'User schedule rental' do
     fill_in 'Data de fim', with: Date.current
     click_on 'Enviar'
 
-    expect(page).to have_content('Data de início não pode ser '\
-                                 'maior que a data final')
+    expect(page).to have_content('Data de início não pode ser maior '\
+                                 'que a data final')
   end
 end
