@@ -39,7 +39,8 @@ describe CarRental do
   end
   describe '#daily_rate_total' do
     it 'must returns the sum of daily rate, car insurance and third party insurance' do
-      car_rental = CarRental.new(daily_rate: 20, car_insurance: 100, third_party_insurance: 102)
+      car_rental = build(:car_rental, daily_rate: 20, car_insurance: 100,
+                         third_party_insurance: 102)
       result = car_rental.daily_rate_total
       expect(result).to eq 222
     end
