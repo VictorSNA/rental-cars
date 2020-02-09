@@ -4,6 +4,9 @@ class Rental < ApplicationRecord
   belongs_to :car_category
   belongs_to :user
   has_one :car_rental
+  has_many :accessory_rentals
+  has_many :accessories, through: :accessory_rentals
+
   validates :start_date, :end_date, presence: true
   validate :start_date_cannot_be_in_the_past
   validate :start_date_cannot_be_greater_than_end_date
@@ -41,7 +44,7 @@ class Rental < ApplicationRecord
 
   def verify_cancelement(description)
     if description.empty?
-      errors.add(:description, 'deve ser preenchida')
+      errors.add(:start_date, 'deve ser preenchida')
       return false
     elsif start_date < 1.day.ago
       errors.add(:start_date, 'já ultrapassou 24 horas')
@@ -49,6 +52,13 @@ class Rental < ApplicationRecord
     else
       true
     end
+  end
+
+  def return_accessories()
+    @accessories = self.accessories
+
+    @accessories
+    byebug
   end
   # def rental_is_expired?
   #   actived_rentals = Rental.where(car_category: car_category)

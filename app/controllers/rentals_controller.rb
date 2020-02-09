@@ -10,12 +10,16 @@ class RentalsController < ApplicationController
     @rental = Rental.new
     @clients = Client.all
     @car_category = CarCategory.all
+    @accessories = Accessory.all
   end
   def create
     @rental = current_user.rentals.new(rental_params)
     @rental.code = SecureRandom.hex(6).upcase
-    return redirect_to @rental, notice: 'Locação agendada com sucesso' if @rental.save
+    create_accessory(@rental) if params[:accessory_id] != nil
+    return redirect_to @rental,
+           notice: 'Locação agendada com sucesso' if @rental.save
 
+    @accessories = Accessory.all
     @clients = Client.all
     @car_category = CarCategory.all
     render :new
@@ -59,13 +63,21 @@ class RentalsController < ApplicationController
     return redirect_to rentals_path,
            notice: 'Locação cancelada com sucesso' if @rental_cancellation.save!
   end
+
   private
 
   def rental_params
-    params.require(:rental).permit(:start_date, :end_date, 
-                                   :client_id, :car_category_id)
+    params.require(:rental).permit(:start_date, :end_date, :client_id,
+                                   :car_category_id)
   end
   def set_rental
     @rental = Rental.find(params[:id])
+  end
+  def create_accessory(rental)
+    @accessories = Accessory.all
+    return if @accessories.empty?
+
+    @accessory = Accessory.find(params[:accessory_id])
+    AccessoryRental.create!(accessory: @accessory, rental: rental)
   end
 end

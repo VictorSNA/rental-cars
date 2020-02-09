@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_08_210203) do
+ActiveRecord::Schema.define(version: 2020_02_08_214705) do
 
   create_table "accessories", force: :cascade do |t|
     t.string "name"
@@ -19,6 +19,15 @@ ActiveRecord::Schema.define(version: 2020_02_08_210203) do
     t.string "photo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "accessory_rentals", force: :cascade do |t|
+    t.integer "accessory_id"
+    t.integer "rental_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["accessory_id"], name: "index_accessory_rentals_on_accessory_id"
+    t.index ["rental_id"], name: "index_accessory_rentals_on_rental_id"
   end
 
   create_table "car_categories", force: :cascade do |t|

@@ -7,6 +7,7 @@ feature 'User schedule rental' do
     car_category = create(:car_category, name: 'AM')
     car_model = create(:car_model, car_category: car_category)
     create(:car, car_model: car_model)
+    create(:accessory, name: 'Bebê conforto')
 
     login_as(user, user: :scope)
     visit root_path
@@ -15,6 +16,7 @@ feature 'User schedule rental' do
     fill_in 'Data de início', with: Date.current
     fill_in 'Data de fim', with: 1.day.from_now
     select "#{client.cpf} - #{client.name}", from: 'Cliente'
+    check 'Bebê conforto'
     select 'AM', from: 'Categoria de carro'
     click_on 'Enviar'
 
@@ -25,6 +27,7 @@ feature 'User schedule rental' do
     expect(page).to have_content(client.name)
     expect(page).to have_content(client.cpf)
     expect(page).to have_content(car_category.name)
+    expect(page).to have_content('Bebê conforto')
   end
 
   scenario 'and must have existing cars avaliables to schedule' do

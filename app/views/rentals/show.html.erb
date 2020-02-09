@@ -6,3 +6,7 @@ Data de fim: <%= @rental.end_date.strftime('%d/%m/%y') %>
 Nome: <%= @rental.client.name %>
 Nome: <%= @rental.client.cpf %>
 Categoria de carro: <%= @rental.car_category.name %>
+Acessórios: 
+<% @rental.accessories.each do |accessory| %>
+  <%= accessory.name %>
+<% end %>

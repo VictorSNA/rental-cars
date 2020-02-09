@@ -16,7 +16,10 @@
   <%= form.collection_select :client_id, @clients, :id, :identification%>
 
   <%= form.label :car_category_id %>
-  <%= form.collection_select :car_category_id, @car_category, :id, :name%>
-
+  <%= form.collection_select :car_category_id, @car_category, :id, :name %>
+  <% @accessories.each do |accessory| %>
+    <%= check_box_tag :accessory_id, accessory.id %>
+    <%= label_tag :accessory_id, accessory.name %>
+  <% end %>
   <%= form.submit 'Enviar' %>
 <% end %>
