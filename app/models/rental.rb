@@ -46,7 +46,7 @@ class Rental < ApplicationRecord
     if description.empty?
       errors.add(:start_date, 'deve ser preenchida')
       return false
-    elsif start_date < 1.day.ago
+    elsif ((Date.current - (start_date).to_date)*24).to_i > 24
       errors.add(:start_date, 'já ultrapassou 24 horas')
       return false
     else
@@ -58,7 +58,6 @@ class Rental < ApplicationRecord
     @accessories = self.accessories
 
     @accessories
-    byebug
   end
   # def rental_is_expired?
   #   actived_rentals = Rental.where(car_category: car_category)
