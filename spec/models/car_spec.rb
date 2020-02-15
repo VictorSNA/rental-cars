@@ -3,14 +3,13 @@ require 'rails_helper'
 describe Car do
   describe '#full_description' do
     it 'should create a full description of car' do
-      manufacturer = Manufacturer.create!(name: 'Renault')
-      car_category = CarCategory.create!(name: 'AM', daily_rate: 46.54, car_insurance: 28,
-                                         third_party_insurance: 10)
-      car_model = CarModel.create!(name: 'Kwid', year: '2020', manufacturer: manufacturer,
-                                   motorization: '1.0', car_category: car_category,
-                                   fuel_type: 'Flex')
-      car = Car.create!(license_plate: 'ABC1234', color: 'Branco', car_model: car_model,
-                        mileage: 10000)
+      manufacturer = create(:manufacturer, name: 'Renault')
+      car_model = create(:car_model,
+                         name: 'Kwid', year: '2020', manufacturer: manufacturer,
+                         motorization: '1.0', fuel_type: 'Flex')
+      car = create(:car,
+                   license_plate: 'ABC1234', color: 'Branco',
+                   car_model: car_model)
       result = car.full_description
 
       expect(result).to eq 'Renault Kwid - ABC1234 - Branco'

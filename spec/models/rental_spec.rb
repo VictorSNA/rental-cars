@@ -14,8 +14,7 @@ describe Rental do
   describe '#start_date_cannot_be_greater_than_end_date' do
     it 'should prevent start date to be greater than end date' do
       rental = build(:rental,
-                      start_date: 1.day.from_now,
-                      end_date: Date.current)
+                     start_date: 1.day.from_now, end_date: Date.current)
       rental.valid?
 
       expect(rental.errors.full_messages).to include('Data de início não '\

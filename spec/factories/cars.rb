@@ -1,6 +1,6 @@
 FactoryBot.define do
   sequence :license_plate do |n|
-    "ABC#{(n).to_s.rjust(4, '0')}"
+    "ABC#{n.to_s.rjust(4, '0')}"
   end
 
   factory :car do

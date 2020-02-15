@@ -1,6 +1,6 @@
 FactoryBot.define do
   sequence :code do |n|
-    "BKING#{(n).to_s.rjust(3, '0')}"
+    "BKING#{n.to_s.rjust(3, '0')}"
   end
 
   factory :rental do

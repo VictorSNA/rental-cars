@@ -32,7 +32,6 @@ describe 'Rental Management' do
       allow(Car).to receive(:all).and_return(Car.none)
       allow(Rental).to receive(:all).and_return(Rental.none)
       user = User.create!(email: 'teste@teste.com', password: '123456')
-      manufacturer = Manufacturer.create!(name: 'Fiat')
       client = Client.create!(name: 'Fulano da Silva', cpf: '127.587.748-60',
                               email: 'fulanodasilva@teste.com')
       car_category = CarCategory.create!(name: 'AM', daily_rate: 46.54,
