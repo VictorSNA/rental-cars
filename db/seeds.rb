@@ -8,10 +8,10 @@
 
 sub_seed = Subsidiary.create!(name: 'Jundiaí 21', cnpj: '09.612.834/0001-22',
                               address: 'Avenida 9 de Julho, 2000')
-Subsidiary.create!(name: 'Paraíso 202', cnpj: '57.952.836/0001-03',
-                   address: 'Avenida Paraíso, 202')
+other_sub = Subsidiary.create!(name: 'Paraíso 202', cnpj: '57.952.836/0001-03',
+                               address: 'Avenida Paraíso, 202')
 user_seed = User.create!(email: 'employee@gmail.com', password: '123456',
-                         subsidiary: sub_seed, status: 0)
+                         subsidiary: sub_seed, status: :employee)
 User.create!(email: 'admin@gmail.com', password: '123456', subsidiary: sub_seed,
              status: :admin)
 manu_seed = Manufacturer.create!(name: 'Suzuki')
@@ -25,6 +25,7 @@ cli_seed = Client.create!(name: 'Josésclayton', cpf: '523.476.268-84',
                           email: 'jclay@gmail.com')
 Car.create!(license_plate: 'XYZ9999', color: 'Branco', car_model: car_mod_seed,
             mileage: 100, status: 0)
-Rental.create!(code: 'cod123', start_date: Date.current,
+Rental.create!(code: 'COD123', start_date: Date.current,
                end_date: 1.day.from_now, client: cli_seed,
-               car_category: car_cat_seed, user: user_seed)
+               car_category: car_cat_seed, user: user_seed,
+               subsidiary: other_sub)

@@ -30,8 +30,13 @@ class RentalsController < ApplicationController
   end
 
   def search
-    @rentals = Rental.where('code LIKE ?', "%#{params[:q].upcase}%")
-                     .where(subsidiary: current_user.subsidiary)
+    if current_user.admin?
+      @rentals = Rental.where('code LIKE ?', "%#{params[:q].upcase}%")
+    else
+      @rentals = Rental.where('code LIKE ?', "%#{params[:q].upcase}%")
+                       .where(subsidiary: current_user.subsidiary)
+    end
+
     if @rentals.blank?
       flash[:notice] = 'Nenhuma locação encontrada'
     end
