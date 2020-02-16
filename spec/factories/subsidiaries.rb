@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :subsidiary do
-    name { 'Paraíso' }
-    cnpj { '20.091.076/0001-87' }
-    address { 'Avenue Paraíso' }
+    name { 'Paraíso Cars' }
+    cnpj { '66.165.300/0001-39' }
+    address { 'Avenue Paraíso, 900' }
   end
 end

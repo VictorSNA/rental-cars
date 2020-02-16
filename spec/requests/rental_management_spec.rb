@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Rental Management' do
   context 'create' do
     it 'must create a rental successfully' do
-      user = User.create!(email: 'teste@teste.com', password: '123456')
+      user = create(:user)
       manufacturer = Manufacturer.create!(name: 'Fiat')
       client = Client.create!(name: 'Fulano da Silva', cpf: '127.587.748-60',
                               email: 'fulanodasilva@teste.com')
@@ -22,7 +22,8 @@ describe 'Rental Management' do
         end_date: 1.day.from_now,
         client_id: client.id,
         car_category_id: car_category.id,
-        user_id: user.id
+        user_id: user.id,
+        subsidiary_id: user.subsidiary.id
       }
 
       expect(response).to have_http_status(:ok)
@@ -31,7 +32,7 @@ describe 'Rental Management' do
     it 'must create a rental and check for a valid car' do
       allow(Car).to receive(:all).and_return(Car.none)
       allow(Rental).to receive(:all).and_return(Rental.none)
-      user = User.create!(email: 'teste@teste.com', password: '123456')
+      user = create(:user)
       client = Client.create!(name: 'Fulano da Silva', cpf: '127.587.748-60',
                               email: 'fulanodasilva@teste.com')
       car_category = CarCategory.create!(name: 'AM', daily_rate: 46.54,
@@ -42,9 +43,10 @@ describe 'Rental Management' do
         end_date: 1.day.from_now,
         client_id: client.id,
         car_category_id: car_category.id,
-        user_id: user.id
+        user_id: user.id,
+        subsidiary_id: user.subsidiary.id
       }
-      expect(response).to have_http_status 412
+      expect(response).to have_http_status 500
     end
   end
 end

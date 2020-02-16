@@ -3,6 +3,7 @@ class Rental < ApplicationRecord
   belongs_to :client
   belongs_to :car_category
   belongs_to :user
+  belongs_to :subsidiary
   has_one :car_rental, dependent: :destroy
   has_many :accessory_rentals, dependent: :destroy
   has_many :accessories, through: :accessory_rentals

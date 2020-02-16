@@ -36,7 +36,7 @@ feature 'Admin edit car model' do
   end
 
   scenario 'and fields must be present' do
-    user = User.create!(email: 'teste@teste.com', password: '123456')
+    user = create(:user)
     car_model = create(:car_model)
 
     login_as(user, scope: :user)

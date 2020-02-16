@@ -5,10 +5,16 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-user_seed = User.create!(email: 'master@gmail.com', password: '123456')
+
+sub_seed = Subsidiary.create!(name: 'Jundiaí 21', cnpj: '09.612.834/0001-22',
+                              address: 'Avenida 9 de Julho, 2000')
+Subsidiary.create!(name: 'Paraíso 202', cnpj: '57.952.836/0001-03',
+                   address: 'Avenida Paraíso, 202')
+user_seed = User.create!(email: 'employee@gmail.com', password: '123456',
+                         subsidiary: sub_seed, status: 0)
+User.create!(email: 'admin@gmail.com', password: '123456', subsidiary: sub_seed,
+             status: :admin)
 manu_seed = Manufacturer.create!(name: 'Suzuki')
-Subsidiary.create!(name: 'Jundiaí 21', cnpj: '09.612.834/0001-22',
-                   address: 'Avenida 9 de Julho, 2000')
 car_cat_seed =CarCategory.create!(name: 'XYZ', daily_rate: 15.533, 
                                   car_insurance: 34.321,
                                   third_party_insurance: 33.922)

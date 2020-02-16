@@ -2,7 +2,8 @@ require 'rails_helper'
 
 feature 'User search rental' do
   scenario 'successfully' do
-    user = create(:user)
+    subsidiary = create(:subsidiary)
+    user = create(:user, subsidiary: subsidiary)
     car_category = create(:car_category, name: 'AM')
     client = create(:client, name: 'Fulano da Silva')
     car_model = create(:car_model, car_category: car_category)
@@ -10,7 +11,7 @@ feature 'User search rental' do
     create(:rental,
            client: client, user: user, code: 'VKN0001',
            car_category: car_category, start_date: Date.current,
-           end_date: 1.day.from_now)
+           end_date: 1.day.from_now, subsidiary: subsidiary)
 
     login_as(user, scope: :user)
     visit root_path
@@ -32,7 +33,8 @@ feature 'User search rental' do
   end
 
   scenario 'with a partial code' do
-    user = create(:user)
+    subsidiary = create(:subsidiary)
+    user = create(:user, subsidiary: subsidiary)
     car_category = create(:car_category, name: 'AM')
     client = create(:client, name: 'Fulano da Silva')
     car_model = create(:car_model, car_category: car_category)
@@ -41,11 +43,11 @@ feature 'User search rental' do
     create(:rental,
            client: client, user: user, code: 'VKN0001',
            car_category: car_category, start_date: Date.current,
-           end_date: 1.day.from_now)
+           end_date: 1.day.from_now, subsidiary: subsidiary)
     create(:rental,
            client: client, user: user, code: 'VKN0002',
            car_category: car_category, start_date: Date.current,
-           end_date: 1.day.from_now)
+           end_date: 1.day.from_now, subsidiary: subsidiary)
 
     login_as(user, scope: :user)
     visit rentals_path
@@ -54,6 +56,29 @@ feature 'User search rental' do
 
     expect(page).to have_content('VKN0001')
     expect(page).to have_content('VKN0002')
+  end
+
+  scenario 'and must be from subsidiary to find or admin' do
+    subsidiary = create(:subsidiary, name: 'Saúde', cnpj: '47.293.874/0001-48',
+                                     address: 'Avenue Jabaquara, 1300')
+    user = create(:user, subsidiary: subsidiary)
+    another_user = create(:user)
+    car_category = create(:car_category, name: 'AM')
+    client = create(:client, name: 'Fulano da Silva')
+    car_model = create(:car_model, car_category: car_category)
+    create(:car, car_model: car_model)
+    create(:rental,
+           client: client, user: user, code: 'VKN0001',
+           car_category: car_category, start_date: Date.current,
+           end_date: 1.day.from_now, subsidiary: subsidiary)
+
+    login_as(another_user, scope: :user)
+    visit root_path
+    click_on 'Locações'
+    fill_in 'Pesquisar', with: 'VKN0001'
+    click_on 'Buscar'
+
+    expect(page).to have_content('Nenhuma locação encontrada')
   end
 
   scenario 'and must be authenticated via button' do

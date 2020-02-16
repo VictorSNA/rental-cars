@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'Admin view Car Model' do
   scenario 'successfully' do
-    user = User.create!(email: 'teste@teste.com', password: '123456')
+    user = create(:user)
     manufacturer = create(:manufacturer, name: 'Chevrolet')
     car_category = create(:car_category, name: 'AM')
     car_model = create(:car_model,

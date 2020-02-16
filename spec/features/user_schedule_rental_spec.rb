@@ -2,7 +2,8 @@ require 'rails_helper'
 
 feature 'User schedule rental' do
   scenario 'sucessfully' do
-    user = create(:user)
+    subsidiary = create(:subsidiary, name: 'Paraíso')
+    user = create(:user, subsidiary: subsidiary)
     client = create(:client, name: 'Fulano da Silva', cpf: '127.587.748-60')
     car_category = create(:car_category, name: 'AM')
     car_model = create(:car_model, car_category: car_category)
@@ -27,6 +28,7 @@ feature 'User schedule rental' do
     expect(page).to have_content(client.name)
     expect(page).to have_content(client.cpf)
     expect(page).to have_content(car_category.name)
+    expect(page).to have_content('Paraíso')
     expect(page).to have_content('Bebê conforto')
   end
 

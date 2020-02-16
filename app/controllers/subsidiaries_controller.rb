@@ -3,17 +3,25 @@ class SubsidiariesController < ApplicationController
   before_action :set_subsidiary, only: %i[show edit update destroy]
 
   def index
-    @subsidiaries = Subsidiary.all
+    return @subsidiaries = Subsidiary.all if current_user.admin?
+
+    @subsidiaries = Subsidiary.where(id: current_user.subsidiary)
   end
 
   def show
+    return redirect_to root_path, alert: 'Você não pode fazer essa ação' \
+      unless current_user.subsidiary == @subsidiary || current_user.admin?
   end
 
   def new
+    return redirect_to root_path, alert: 'Você não pode fazer essa ação' \
+      unless current_user.admin?
     @subsidiary = Subsidiary.new
   end
 
   def edit
+    return redirect_to root_path, alert: 'Você não pode fazer essa ação' \
+      unless current_user.admin?
   end
 
   def update
@@ -31,10 +39,12 @@ class SubsidiariesController < ApplicationController
   end
 
   def destroy
-    return redirect_to subsidiaries_path, notice: 'Filial excluída com sucesso'\
-      if @subsidiary.destroy
+    if current_user.admin? && current_user.subsidiary = @subsidiary
+      return redirect_to subsidiaries_path, notice: 'Filial excluída com sucesso'\
+        if @subsidiary.destroy
 
-    redirect_to :show
+      redirect_to :show
+    end
   end
 
   private

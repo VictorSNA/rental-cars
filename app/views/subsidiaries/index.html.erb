@@ -4,12 +4,16 @@ active
 
 <div class="row">
 <h1 class="col-md-auto">Lista de filiais</h1>
-<%= link_to 'Cadastrar Filial', new_subsidiary_path, class: 'badge badge-pill badge-light h-100', style: "color: #4300D2; font-size: 95%" %>
+<% if current_user.admin? %>
+  <%= link_to 'Cadastrar Filial', new_subsidiary_path, class: 'badge badge-pill badge-light h-100', style: "color: #4300D2; font-size: 95%" %>
+<% end %>
 </div>
 
 <div class="alert alert-light pt-1 pb-1" role="alert">
     <%= 'Nenhuma filial cadastrada' if @subsidiaries.empty? %>
-    <%= "Filiail(s) cadastrado(s): #{@subsidiaries.count}" if @subsidiaries.present? %>
+    <% if current_user.admin? %>
+      <%= "Filiail(s) cadastrado(s): #{@subsidiaries.count}" if @subsidiaries.present? %>
+    <% end %>
 </div>
 
 <% if @subsidiaries.any? %>

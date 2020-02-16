@@ -2,8 +2,8 @@ require 'rails_helper'
 
 feature 'Admin delete subsidiary' do
   scenario 'successfully' do
-    user = create(:user)
-    create(:subsidiary, name: 'Jabaquara')
+    subsidiary = create(:subsidiary, name: 'Jabaquara')
+    user = create(:user, subsidiary: subsidiary, status: 5)
 
     login_as(user, scope: :user)
     visit root_path

@@ -18,6 +18,7 @@ class RentalsController < ApplicationController
   def create
     @rental = current_user.rentals.new(rental_params)
     @rental.code = SecureRandom.hex(6).upcase
+    @rental.subsidiary = current_user.subsidiary
     create_accessory(@rental) if !params[:accessory_id].nil?
     return redirect_to @rental,
            notice: 'Locação agendada com sucesso' if @rental.save
@@ -30,6 +31,10 @@ class RentalsController < ApplicationController
 
   def search
     @rentals = Rental.where('code LIKE ?', "%#{params[:q].upcase}%")
+                     .where(subsidiary: current_user.subsidiary)
+    if @rentals.blank?
+      flash[:notice] = 'Nenhuma locação encontrada'
+    end
   end
 
   def begin
@@ -54,6 +59,8 @@ class RentalsController < ApplicationController
   end
 
   def cancel
+    return redirect_to root_path, alert: 'Você não pode fazer essa ação' \
+      unless current_user.subsidiary = @rental.subsidiary || current_user.admin?
   end
 
   def confirm_cancel

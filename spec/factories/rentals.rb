@@ -10,5 +10,6 @@ FactoryBot.define do
     car_category
     user
     client
+    subsidiary
   end
 end

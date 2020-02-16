@@ -2,7 +2,8 @@ require 'rails_helper'
 
 feature 'User begin rental' do
   scenario 'and view all avaliable cars before' do
-    user = create(:user)
+    subsidiary = create(:subsidiary)
+    user = create(:user, subsidiary: subsidiary)
     manufacturer = create(:manufacturer, name: 'Renault')
     car_category = create(:car_category, name: 'AM')
     another_car_category = create(:car_category, name: 'BM')
@@ -10,15 +11,14 @@ feature 'User begin rental' do
                        name: 'Kwid', manufacturer: manufacturer,
                        car_category: car_category)
     other_car_model = create(:car_model,
-                             name: 'Kwid', manufacturer: manufacturer,
+                             name: 'Sandero', manufacturer: manufacturer,
                              car_category: another_car_category)
     create(:car,
-           license_plate: 'ABC1234', color: 'Branco', car_model: car_model,
-           status: 0)
+           license_plate: 'ABC1234', color: 'Branco', car_model: car_model)
     create(:car,
-           license_plate: 'DEF5678', color: 'Azul', car_model: other_car_model,
-           status: 0)
-    create(:rental, code: 'VKN0001', car_category: car_category, user: user)
+           license_plate: 'DEF5678', color: 'Azul', car_model: other_car_model)
+    create(:rental, code: 'VKN0001', car_category: car_category, user: user,
+                    subsidiary: subsidiary)
 
     login_as(user, scope: :user)
     visit root_path
@@ -33,7 +33,8 @@ feature 'User begin rental' do
   end
 
   scenario 'successfully' do
-    user = create(:user)
+    subsidiary = create(:subsidiary, name: 'Paraíso')
+    user = create(:user, subsidiary: subsidiary)
     manufacturer = create(:manufacturer, name: 'Renault')
     car_category = create(:car_category, name: 'AM')
     car_model = create(:car_model,
@@ -43,7 +44,8 @@ feature 'User begin rental' do
                  license_plate: 'ABC1234', color: 'Branco',
                  car_model: car_model, status: 0)
     create(:car, car_model: car_model)
-    create(:rental, code: 'VKN0001', car_category: car_category, user: user)
+    create(:rental, code: 'VKN0001', car_category: car_category, user: user,
+                    subsidiary: subsidiary)
 
     login_as(user, scope: :user)
     visit root_path
@@ -58,15 +60,17 @@ feature 'User begin rental' do
     expect(page).to have_content('Locação - VKN0001')
     expect(page).to have_content('Renault Kwid - ABC1234 - Branco')
     expect(page).to have_content('Fulano da Silva')
-    expect(page).to have_content('teste@teste.com')
-    expect(page).to have_content('R$ 46.54')
+    expect(page).to have_content(user.email)
+    expect(page).to have_content('R$ 46,54')
     expect(page).to have_content('R$ 28')
     expect(page).to have_content('R$ 10')
-    expect(page).to have_content('R$ 84.54')
+    expect(page).to have_content('R$ 84,54')
+    expect(page).to have_content('Paraíso')
   end
 
   scenario 'and rental status must change' do
-    user = create(:user)
+    subsidiary = create(:subsidiary)
+    user = create(:user, subsidiary: subsidiary)
     manufacturer = create(:manufacturer, name: 'Renault')
     car_category = create(:car_category, name: 'AM')
     car_model = create(:car_model,
@@ -77,7 +81,7 @@ feature 'User begin rental' do
                  car_model: car_model, status: 0)
     create(:car, car_model: car_model)
     rental = create(:rental, code: 'VKN0001', car_category: car_category,
-                             user: user)
+                             user: user, subsidiary: subsidiary)
 
     login_as(user, scope: :user)
     visit root_path
@@ -95,7 +99,8 @@ feature 'User begin rental' do
   end
 
   scenario 'and unavaliable cars must be blocked via button' do
-    user = create(:user)
+    subsidiary = create(:subsidiary)
+    user = create(:user, subsidiary: subsidiary)
     manufacturer = create(:manufacturer, name: 'Renault')
     car_category = create(:car_category, name: 'AM')
     another_car_category = create(:car_category, name: 'BM')
@@ -111,7 +116,8 @@ feature 'User begin rental' do
     create(:car,
            license_plate: 'DEF5678', color: 'Azul', car_model: other_car_model,
            status: 5)
-    create(:rental, code: 'VKN0001', car_category: car_category, user: user)
+    create(:rental, code: 'VKN0001', car_category: car_category, user: user,
+                    subsidiary: subsidiary)
 
     login_as(user, scope: :user)
     visit root_path
@@ -125,7 +131,8 @@ feature 'User begin rental' do
   end
 
   scenario 'and scheduled rentals must not view avaliable cars' do
-    user = create(:user)
+    subsidiary = create(:subsidiary)
+    user = create(:user, subsidiary: subsidiary)
     manufacturer = create(:manufacturer, name: 'Renault')
     car_category = create(:car_category, name: 'AM')
     car_model = create(:car_model,
@@ -137,7 +144,8 @@ feature 'User begin rental' do
     create(:car, license_plate: 'DEF123', color: 'Cinza',
                  car_model: car_model, status: 0)
     rental = create(:rental, code: 'VKN0001', car_category: car_category,
-                             user: user, status: :active)
+                             user: user, status: :active,
+                             subsidiary: subsidiary)
     create(:car_rental, rental: rental, car: car)
 
     login_as(user, scope: :user)
