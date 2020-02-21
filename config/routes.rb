@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   end
   resources :accessories, only: %i[index show new create]
   resources :cars, only: %i[index new create show]
+  resources :reports, only: %i[index]
 
   namespace 'api' do
     namespace 'v1' do

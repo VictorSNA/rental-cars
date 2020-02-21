@@ -58,6 +58,9 @@
             <li class="nav-item text-center <%= yield :navigation if current_page?(cars_path)%>">
             <%= image_tag "img/cars_ico.png", alt: 'cars_ico' %>
             <%= link_to 'Carros', cars_path, class: "nav-link"  %></li>
+            <li class="nav-item text-center <%= yield :navigation if current_page?(reports_path)%>">
+            <%= image_tag "img/cars_ico.png", alt: 'cars_ico' %>
+            <%= link_to 'Relatórios', reports_path, class: "nav-link"  %></li>
           </ul>
 
         </div>

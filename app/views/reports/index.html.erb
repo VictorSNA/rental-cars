@@ -1,0 +1,4 @@
+<%= form_with model: @reports, local: true do |f| %>
+  <%= f.label :subsidiary_id, 'Escolher filial' %>
+  <%= f.select :subsidiary_id, options_for_select(@subsidiaries.map{|sub| [sub.name, sub.id]} + [['Todas filiais', 'all']]) %>
+<% end %>
