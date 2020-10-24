@@ -23,6 +23,14 @@ class ManufacturersController < ApplicationController
     render :new
   end
 
+  def search
+    @manufacturers = Manufacturer.where('name LIKE ?', "%#{params[:q].upcase}%")
+
+    if @manufacturers.blank?
+      flash[:notice] = 'Nenhuma locação encontrada'
+    end
+  end
+
   def update
     return redirect_to @manufacturer, 
       notice: 'Fabricante editado com sucesso'if @manufacturer.update(manufacturer_params)

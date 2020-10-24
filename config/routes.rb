@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   devise_for :users
   root to: 'home#index'
-  resources :manufacturers
+  resources :manufacturers do
+    get 'search', on: :collection
+  end
   resources :subsidiaries
   resources :car_categories
   resources :car_models
