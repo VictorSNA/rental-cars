@@ -1,0 +1,30 @@
+image: ruby:2.6.3
+
+stages:
+  - test
+  - quality
+
+cache:
+  paths:
+    - .bundle
+    - .gems/
+
+variables:
+  RAILS_ENV: test
+  BUNDLE_PATH: "${CI_PROJECT_DIR}/.gems"
+
+Rspec:
+  stage: test
+  before_script:
+    - bundle install
+  script:
+    - bin/rails db:migrate
+    - bundle exec rspec .
+
+Rubocop:
+  allow_failure: true
+  stage: quality
+  before_script:
+    - bundle install
+  script:
+    - bundle exec rubocop
