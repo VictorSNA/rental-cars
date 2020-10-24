@@ -14,4 +14,4 @@ services:
       - .:/rental-cars
     ports:
       - "3000:3000"
-    command: "bundle exec rails s"
+    command: "bundle exec rails s -b 0.0.0.0"

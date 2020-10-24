@@ -11,6 +11,13 @@ active
     <%= 'Nenhum fabricante cadastrado' if @manufacturers.empty? %>
     <%= "Fabricante(s) cadastrado(s): #{@manufacturers.count}" if @manufacturers.present? %>
 </div>
+<section>
+  <%= form_tag search_manufacturers_path, method: 'get' do %>
+    <%= label_tag :q, 'Pesquisar' %>
+    <%= text_field_tag :q %>
+    <%= submit_tag 'Buscar'%>
+  <% end %>
+</section>
 
 <% if @manufacturers.any? %>
 <table class="table table-sm table-light table-hover">
