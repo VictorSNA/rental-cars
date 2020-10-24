@@ -8,6 +8,8 @@ services:
         app_path: /rental-cars
     image: rental-cars
     container_name: rental-cars
+    environment:
+      BUNDLE_PATH: .gems
     volumes:
       - .:/rental-cars
     ports:

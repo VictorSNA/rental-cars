@@ -1,0 +1,43 @@
+#!/bin/bash
+
+COMMAND=$1
+ARGS=${@:2}
+
+set -e
+
+run(){
+  env=$1
+  shift
+
+  docker-compose run --rm -e RAILS_ENV=$env "web" $@
+}
+
+case $COMMAND in
+  prepare)
+    docker-compose build --build-arg uid=$EUID
+    $0 bundle install
+    run "development" bin/rails db:drop
+    run "development" bin/rails db:create
+    run "development" bin/rails db:migrate
+    echo "All set!"
+    ;;
+  rspec)
+    $0 run bundle exec rspec $ARGS
+    ;;
+  run)
+    run "development" $ARGS
+    ;;
+  rails)
+    $0 run bin/rails $ARGS
+    ;;
+  bash)
+    $0 run /bin/bash
+    ;;
+  rubocop)
+    $0 run bundle exec rubocop $ARGS
+    ;;
+  bundle)
+    $0 run bundle $ARGS
+   ;;
+esac
+exit 0

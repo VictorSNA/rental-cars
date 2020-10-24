@@ -1,23 +1,19 @@
 # Rental Cars
 
-Rental Cars é um projeto de sistema administrativo de uma empresa que aluga
-carros para o público em geral. O foco do sistema é gerenciar a frota de carros,
-os clientes e as unidades (filiais) da empresa.
+Rental Cars is a project for renting cars through the administrative system.
+It's focus is to manage cars, clientes and units of business.
 
+## Getting Started
 
-## Como iniciar o projeto
+To execute you need to clone in your local machine. It's compatible with ruby
+2.6.3, if you prefer you can install in your computer, after that you can
+install dependencies by running `bundle install`.
 
-Para executar esse projeto você deve ter um computador, preferencialmente com
-Linux, com a linguagem de programação Ruby na versão 2.6.3
+You can either use docker to do all you need, you just need to run
+`./bin/rental-cars prepare`. Tested with docker `19.03.8` and docker-compose
+`1.26.2`.
 
-Dentro do diretório do projeto, você deve instalar as dependências definidas no
-arquivo `Gemfile` com o comando `bundle install`.
+## Executing tests
 
-Com todas dependências instaladas, execute `rails server` e acesse
-`localhost:3000` em seu navegador.
-
-
-## Executando os testes
-
-Com todas dependências instaladas, como descrito na seção anterior, em seu
-terminal execute `rspec`.
+To run tests if you're using docker, you can execute `./bin/rental-cars rspec`
+or to run in your machine `bundle exec rspec`.
