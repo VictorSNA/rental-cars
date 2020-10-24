@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  web:
+    build:
+      context: .
+      args:
+        app_path: /rental-cars
+    image: rental-cars
+    container_name: rental-cars
+    volumes:
+      - .:/rental-cars
+    ports:
+      - "3000:3000"
+    command: "bundle exec rails s"
